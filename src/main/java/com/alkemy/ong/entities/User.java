@@ -27,19 +27,19 @@ public class User {
     private String id;
 
     @NonNull
-    private String  firstName; //NOT NULL
+    private String  firstName;
 
     @NonNull
-    private String lastName; // NOT NULL
+    private String lastName;
 
     @NonNull
-    private String email; // UNIQUE NOT NULL
+    private String email;
 
     @NonNull
-    private String password; // NOT NULL
+    private String password;
 
     @Nullable
-    private String photo; // NULLABLE
+    private String photo;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
