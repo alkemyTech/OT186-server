@@ -1,5 +1,6 @@
-package com.alkemy.ong.entities;
+package com.alkemy.ong.entity;
 
+import com.alkemy.ong.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,10 @@ public class User {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "id_role")
+    private Role roles;
 
     @NonNull
     private String  firstName;
