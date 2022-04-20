@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
@@ -23,8 +25,9 @@ import java.util.Objects;
 public class Organization {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     private String name;
 
@@ -40,6 +43,8 @@ public class Organization {
 
     private String welcomeText;
 
+    @Column(nullable = false)
+    //@Temporal(TemporalType.DATE)
     private Timestamp timestamps;
 
     @Column(nullable = false)

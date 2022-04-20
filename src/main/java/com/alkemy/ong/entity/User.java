@@ -1,10 +1,6 @@
 package com.alkemy.ong.entity;
 
-import com.alkemy.ong.entities.Role;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -12,20 +8,22 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
-@SQLDelete(sql = "UPDATE users SET softDelete = true WHERE id=?")
-@Where(clause = "softDelete=false")
+@SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete=false")
 public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    private UUID id;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "id_role")
@@ -47,11 +45,11 @@ public class User {
     private String photo;
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @NonNull
-    @Column(name = "softDelete")
+    @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
 
 }

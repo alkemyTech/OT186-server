@@ -1,4 +1,4 @@
-package com.alkemy.ong.entities;
+package com.alkemy.ong.dto;
 
 import lombok.Data;
 

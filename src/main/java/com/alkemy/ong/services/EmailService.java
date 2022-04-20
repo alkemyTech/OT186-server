@@ -16,7 +16,7 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 import java.io.IOException;
 
 @Service
-@PropertySource("classpath:sendgrid.properties")
+@PropertySource("classpath:application.properties")
 public class EmailService {
 
     @Value("${sendgrid.from.name}")
