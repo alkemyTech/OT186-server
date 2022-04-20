@@ -1,16 +1,31 @@
 package com.alkemy.ong.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
-//ticket 21
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name="Activity")
+@Table(name="activity")
+@SQLDelete(sql = "UPDATE activity SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete=false")
 public class Activity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_activity")
-    private Long idActivity;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", nullable = false, updatable = false)
+    private UUID id;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "content", nullable = false)
@@ -22,63 +37,4 @@ public class Activity {
     @Column(name = "soft_delete")
     private Boolean softDelete;
 
-    public Activity() {
-    }
-
-    public Activity(Long idActivity, String name, String content, String image, Timestamp timestamps, Boolean softDelete) {
-        this.idActivity = idActivity;
-        this.name = name;
-        this.content = content;
-        this.image = image;
-        this.timestamps = timestamps;
-        this.softDelete = softDelete;
-    }
-
-    public Long getIdActivity() {
-        return idActivity;
-    }
-
-    public void setIdActivity(Long idActivity) {
-        this.idActivity = idActivity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Timestamp getTimestamps() {
-        return timestamps;
-    }
-
-    public void setTimestamps(Timestamp timestamps) {
-        this.timestamps = timestamps;
-    }
-
-    public Boolean getSoftDelete() {
-        return softDelete;
-    }
-
-    public void setSoftDelete(Boolean softDelete) {
-        this.softDelete = softDelete;
-    }
 }

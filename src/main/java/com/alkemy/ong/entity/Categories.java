@@ -1,9 +1,6 @@
-package com.alkemy.ong.entities;
+package com.alkemy.ong.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -11,11 +8,12 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.UUID;
 
 
 @Entity
+@Getter @Setter
 @Table(name="categories")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id=?")
@@ -23,10 +21,10 @@ import java.time.Instant;
 public class Categories {
 
     @Id
-    @GeneratedValue(generator="uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "ID")
-    private String id;
+    private UUID id;
 
     @NonNull
     @Column(name = "name")
@@ -42,7 +40,7 @@ public class Categories {
 
     @NonNull
     @Column(name = "timestamps")
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     private Timestamp timestamp = Timestamp.from(Instant.now());
 
     @NonNull

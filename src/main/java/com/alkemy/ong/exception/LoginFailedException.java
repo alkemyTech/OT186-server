@@ -1,4 +1,4 @@
-package com.alkemy.ong.exceptions;
+package com.alkemy.ong.exception;
 
 public class LoginFailedException extends Exception{
 }

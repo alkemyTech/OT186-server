@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class OrganizationServiceImp implements OrganizationService {
     OrganizationMapper organizationMapper;
 
     @Override
-    public OrganizationDTO getDetailsById(Long id) {
+    public OrganizationDTO getDetailsById(UUID id) {
         Optional<Organization> entity = this.organizationRepository.findById(id);
         if(entity.isEmpty()) {
             throw new ParamNotFound("invalid organization id");
