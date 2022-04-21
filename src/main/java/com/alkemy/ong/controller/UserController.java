@@ -30,12 +30,6 @@ public class UserController {
     public User post(@RequestBody User user) {
         return userRepository.save(user);
     }
-
-    @GetMapping("/login/{id}")
-    public Optional<User> findById(@PathVariable("id") UUID id){
-        return userRepository.findById((id));
-    }
-
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto loginRequestDto){
         try {
