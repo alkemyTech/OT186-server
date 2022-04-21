@@ -1,12 +1,14 @@
 package com.alkemy.ong.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,25 +31,29 @@ public class User {
     //@JoinColumn(name = "id_role")
     //private Role roles;
 
-    @Column(name ="first_name", nullable = false)
+    @NonNull
+    @Column(name ="first_name")
     private String  firstName;
 
-    @Column(name ="last_name", nullable = false)
+    @NonNull
+    @Column(name ="last_name")
     private String lastName;
 
-    @Column(name ="email", nullable = false)
+    @NonNull
+    @Column(name ="email")
     private String email;
 
-    @Column(name ="password", nullable = false)
+    @NonNull
+    @Column(name ="password")
     private String password;
 
     @Nullable
     @Column(name ="photo")
     private String photo;
 
-    @Column(name = "created_at")
-    //@Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private Timestamp createdAt;
 
     @NonNull
     @Column(name = "soft_delete")

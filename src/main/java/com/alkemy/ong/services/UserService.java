@@ -40,6 +40,12 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public User save(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return user;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return null;

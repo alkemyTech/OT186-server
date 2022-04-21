@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.FailedLoginException;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/auth")
 public class UserController {
@@ -28,8 +24,10 @@ public class UserController {
 
     @PostMapping("/register")
     public User post(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.save(user);
     }
+
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto loginRequestDto){
         try {
