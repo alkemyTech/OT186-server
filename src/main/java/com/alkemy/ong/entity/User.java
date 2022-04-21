@@ -29,19 +29,20 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role roles;
 
-    @NonNull
+    @Column(name ="first_name", nullable = false)
     private String  firstName;
 
-    @NonNull
+    @Column(name ="last_name", nullable = false)
     private String lastName;
 
-    @NonNull
+    @Column(name ="email", nullable = false)
     private String email;
 
-    @NonNull
+    @Column(name ="password", nullable = false)
     private String password;
 
     @Nullable
+    @Column(name ="photo")
     private String photo;
 
     @Column(name = "created_at")
