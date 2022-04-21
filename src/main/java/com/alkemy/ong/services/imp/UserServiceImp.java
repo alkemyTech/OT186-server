@@ -1,4 +1,4 @@
-package com.alkemy.ong.services;
+package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
@@ -13,12 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.FailedLoginException;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, UserServi {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
