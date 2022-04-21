@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.services.imp.UserServiceImp;
+import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class UserController {
 
-    private final UserServiceImp userServiceImp;
+    private final UserService userService;
 
     @Autowired
-    UserController(UserServiceImp userServiceImp){
-        this.userServiceImp = userServiceImp;
+    UserController(UserService userService){
+        this.userService = userService;
     }
 
 

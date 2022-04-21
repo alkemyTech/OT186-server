@@ -2,7 +2,7 @@ package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
-import com.alkemy.ong.services.imp.UserServiceImp;
+import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +19,18 @@ import javax.validation.Valid;
 public class UserAuthController {
 
 
-    private final UserServiceImp userServiceImp;
+    private final UserService userService;
 
     @Autowired
-    UserAuthController(UserServiceImp userServiceImp){
-        this.userServiceImp = userServiceImp;
+    UserAuthController(UserService userService){
+        this.userService = userService;
     }
 
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto loginRequestDto){
         try {
-            User user = userServiceImp.login(loginRequestDto);
+            User user = userService.login(loginRequestDto);
             return ResponseEntity.ok(user);
         } catch (FailedLoginException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("false");
