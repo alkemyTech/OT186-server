@@ -6,13 +6,13 @@ import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.FailedLoginException;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,11 +25,17 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PostMapping("/register")
     public User post(@RequestBody User user) {
         return userRepository.save(user);
     }
-    
+
+    @GetMapping("/login/{id}")
+    public Optional<User> findById(@PathVariable("id") UUID id){
+        return userRepository.findById((id));
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto loginRequestDto){
         try {
