@@ -1,6 +1,6 @@
 package com.alkemy.ong.services.imp;
 
-import com.alkemy.ong.dto.LoginRequestDto;
+import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.security.auth.login.FailedLoginException;
 import java.util.Collections;
 
 @Service
-public class UserService implements UserDetailsService, UserServi {
+public class UserServiceImp implements UserDetailsService, com.alkemy.ong.services.UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService, UserServi {
 
     @Autowired
     @Lazy
-    UserService(UserRepository userRepository, final PasswordEncoder passwordEncoder){
+    UserServiceImp(UserRepository userRepository, final PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
