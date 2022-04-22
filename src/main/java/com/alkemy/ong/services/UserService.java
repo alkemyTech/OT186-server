@@ -5,7 +5,7 @@ import javax.security.auth.login.FailedLoginException;
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.repository.UserRepository;
-
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +40,11 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User save(User user){
+    public User save(User user)
+            throws EmailAlreadyExistException {
+         if (userRepository.findByEmail(user.getEmail()) != null) {
+                throw new EmailAlreadyExistException();
+            }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
