@@ -2,7 +2,9 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.exception.LoginFailedException;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +18,7 @@ import javax.security.auth.login.FailedLoginException;
 import java.util.Collections;
 
 @Service
-public class UserServiceImp implements UserDetailsService, com.alkemy.ong.services.UserService {
+public class UserServiceImp implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -30,13 +32,19 @@ public class UserServiceImp implements UserDetailsService, com.alkemy.ong.servic
     }
 
 
-    public User login(LoginRequestDto loginRequestDto) throws FailedLoginException {
+    public User save(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return user;
+    }
+
+    public User login(LoginRequestDto loginRequestDto) throws LoginFailedException {
         User user = userRepository.findByEmail(loginRequestDto.getEmail());
         if (user == null)
             throw new UsernameNotFoundException("User Not Found");
 
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()))
-            throw new FailedLoginException("Email and password don't match.");
+            throw new LoginFailedException("Email and password don't match.");
 
         return user;
     }

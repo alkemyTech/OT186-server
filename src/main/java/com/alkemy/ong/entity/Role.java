@@ -21,8 +21,10 @@ public class Role {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
+    @Column(name ="name")
     private String name;
 
+    @Column(name ="description")
     private String description;
 
     @Column(name = "created_at")
