@@ -40,6 +40,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+
     public User save(User user)
             throws EmailAlreadyExistException {
          if (userRepository.findByEmail(user.getEmail()) != null) {
