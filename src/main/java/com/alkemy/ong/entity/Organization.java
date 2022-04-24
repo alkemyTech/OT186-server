@@ -44,7 +44,6 @@ public class Organization {
     private String welcomeText;
 
     @Column(nullable = false)
-    //@Temporal(TemporalType.DATE)
     private Timestamp timestamps;
 
     @Column(nullable = false)
