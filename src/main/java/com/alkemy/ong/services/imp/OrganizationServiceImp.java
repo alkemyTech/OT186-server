@@ -7,7 +7,9 @@ import com.alkemy.ong.mapper.OrganizationMapper;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.services.OrganizationService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
