@@ -2,6 +2,7 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.LoginFailedException;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
@@ -13,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.security.auth.login.FailedLoginException;
 import java.util.Collections;
 
 @Service
@@ -32,7 +31,10 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
 
-    public User save(User user){
+    public User save(User user) throws EmailAlreadyExistException {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new EmailAlreadyExistException();
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;

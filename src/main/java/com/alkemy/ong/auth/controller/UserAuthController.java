@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.LoginFailedException;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,14 @@ public class UserAuthController {
     }
 
     @PostMapping("/register")
-    public User post(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseEntity post(@RequestBody User user){
+        try {
+            user = userService.save(user);
+            return ResponseEntity.ok(user);
+        } catch (EmailAlreadyExistException e) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Email Alredy Exists, the result is: " + false);
+        }
     }
 
     @PostMapping("/login")
