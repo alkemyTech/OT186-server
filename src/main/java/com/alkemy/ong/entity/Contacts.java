@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity
 @Getter @Setter
 @Table(name = "contacts")
-@SQLDelete(sql = "UPDATE organization SET deletedAt = true WHERE id=?")
+@SQLDelete(sql = "UPDATE contacts SET deletedAt = true WHERE id=?")
 @Where(clause = "deletedAt=false")
 @NoArgsConstructor
 @AllArgsConstructor
