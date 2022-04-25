@@ -27,9 +27,9 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    //@OneToOne(optional = false)
-    //@JoinColumn(name = "id_role")
-    //private Role roles;
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role roles;
 
     @NonNull
     @Column(name ="first_name")

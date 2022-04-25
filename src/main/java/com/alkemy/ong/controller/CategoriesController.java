@@ -23,4 +23,10 @@ public class CategoriesController {
             return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<CategoriesBasicDTO>> getAll (){
+        List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
+        return ResponseEntity.ok().body(categoriesBasicDTO);
+    }
+
 }
