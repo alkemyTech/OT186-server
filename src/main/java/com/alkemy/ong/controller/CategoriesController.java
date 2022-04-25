@@ -17,11 +17,16 @@ public class CategoriesController {
     @Autowired
     private CategoriesService categoriesService;
 
-    //OT186-40    @GetMapping()
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriesDTO> getById (@PathVariable UUID id){
+            CategoriesDTO dto = categoriesService.getDetailsById(id);
+            return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping()
     public ResponseEntity<List<CategoriesBasicDTO>> getAll (){
         List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
         return ResponseEntity.ok().body(categoriesBasicDTO);
     }
-
 
 }
