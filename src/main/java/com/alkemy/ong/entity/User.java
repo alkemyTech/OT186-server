@@ -59,6 +59,8 @@ public class User {
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
 
+    public User(String firstName, String lastName, String email, String photo) {
+    }
 }
 
 

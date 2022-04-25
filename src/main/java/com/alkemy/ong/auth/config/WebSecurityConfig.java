@@ -21,11 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserServiceImp userServiceImp;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userServiceImp)
                 .passwordEncoder(passwordEncoder());
+
     }
 
     @Override
