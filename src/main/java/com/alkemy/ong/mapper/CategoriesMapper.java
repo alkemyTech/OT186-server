@@ -22,8 +22,8 @@ public class CategoriesMapper {
     public CategoriesDTO categories2DTO(Categories entity){
         CategoriesDTO dto = new CategoriesDTO();
         dto.setName(entity.getName());
-	dto.setDescripyion(entity.getDescrition());
-	dto.setImage(entity.getImage());
+	    dto.setDescription(entity.getDescription());
+	    dto.setImage(entity.getImage());
         return dto;
     }
 
