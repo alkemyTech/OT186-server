@@ -1,17 +1,14 @@
 package com.alkemy.ong.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -19,24 +16,32 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
+@SQLDelete(sql = "UPDATE news SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete=false")
 public class News {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private UUID id;
-	
-	@NonNull
+
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@NonNull
+
+	@Column(name = "content", nullable = false)
 	private String content;
-	
-	@NonNull
+
+	@Column(name = "image", nullable = false)
 	private String image;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_categories_id"), name="categories_id", referencedColumnName = "id", columnDefinition = "String")
+
+	@Column(name = "soft_delete")
+	private Boolean softDelete = Boolean.FALSE;
+
+	@Column(name = "created_at")
+	private Timestamp timestamp = Timestamp.from(Instant.now());
+
+	@ManyToOne
+	@JoinColumn(name="categories_id")
 	private Categories categories;
 		
 }

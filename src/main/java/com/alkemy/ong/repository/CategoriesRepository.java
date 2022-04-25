@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, UUID> {
-    
+
 }
