@@ -17,7 +17,6 @@ public class CategoriesController {
     @Autowired
     private CategoriesService categoriesService;
 
-    //OT186-41
     @GetMapping("/{id}")
     public ResponseEntity<CategoriesDTO> getById (@PathVariable UUID id){
             CategoriesDTO dto = categoriesService.getDetailsById(id);

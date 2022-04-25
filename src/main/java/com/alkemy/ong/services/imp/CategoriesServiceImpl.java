@@ -3,7 +3,6 @@ package com.alkemy.ong.services.imp;
 import com.alkemy.ong.dto.CategoriesBasicDTO;
 import com.alkemy.ong.dto.CategoriesDTO;
 import com.alkemy.ong.entity.Categories;
-import com.alkemy.ong.exception.ExceptionEnum;
 import com.alkemy.ong.mapper.CategoriesMapper;
 import com.alkemy.ong.repository.CategoriesRepository;
 import com.alkemy.ong.services.CategoriesService;
