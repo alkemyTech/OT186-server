@@ -17,6 +17,18 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+    @GetMapping()
+    public ResponseEntity<List<NewsDTO>> getAll(){
+        List<NewsDTO> newsDTOList = newsService.getAllNews();
+        return ResponseEntity.ok().body(newsDTOList);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<NewsDTO> getByID (@PathVariable UUID id){
+        NewsDTO dto = newsService.getDetailsById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
     @PostMapping
     public ResponseEntity<NewsDTO> save (NewsDTO newsDTO){
         NewsDTO newsSaved = newsService.save(newsDTO);
