@@ -27,6 +27,7 @@ public class Organization {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     private String name;
@@ -44,7 +45,6 @@ public class Organization {
     private String welcomeText;
 
     @Column(nullable = false)
-    //@Temporal(TemporalType.DATE)
     private Timestamp timestamps;
 
     @Column(nullable = false)

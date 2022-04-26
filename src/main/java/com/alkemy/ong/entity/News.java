@@ -23,6 +23,7 @@ public class News {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@org.hibernate.annotations.Type(type="uuid-char")
 	private UUID id;
 
 	@Column(name = "name", nullable = false)
