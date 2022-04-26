@@ -19,8 +19,8 @@ public class CategoriesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoriesDTO> getById (@PathVariable UUID id){
-        CategoriesDTO dto = categoriesService.getDetailsById(id);
-        return ResponseEntity.ok().body(dto);
+            CategoriesDTO dto = categoriesService.getDetailsById(id);
+            return ResponseEntity.ok().body(dto);
     }
 
     @GetMapping()
