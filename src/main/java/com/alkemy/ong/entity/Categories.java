@@ -24,6 +24,7 @@ public class Categories {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "ID")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     @NonNull

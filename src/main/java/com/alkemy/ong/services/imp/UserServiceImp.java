@@ -2,53 +2,53 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.entity.User;
-import com.alkemy.ong.exception.EmailAlreadyExistException;
-import com.alkemy.ong.exception.LoginFailedException;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Collections;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-
     @Autowired
-    @Lazy
-    UserServiceImp(UserRepository userRepository, final PasswordEncoder passwordEncoder){
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserRepository userRepository;
+    @Autowired @Lazy
+    private PasswordEncoder passwordEncoder;
+    @Autowired @Lazy
+    private AuthenticationManager authenticationManager;
 
 
-    public User save(User user) throws EmailAlreadyExistException {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            throw new EmailAlreadyExistException();
-        }
+    public User save(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
 
-    public User login(LoginRequestDto loginRequestDto) throws LoginFailedException {
-        User user = userRepository.findByEmail(loginRequestDto.getEmail());
-        if (user == null)
-            throw new UsernameNotFoundException("User Not Found");
+    public UserDetails login(LoginRequestDto loginRequestDto) throws BadCredentialsException {
 
-        if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()))
-            throw new LoginFailedException("Email and password don't match.");
-
-        return user;
+        UserDetails userDetails;
+        try {
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword())
+            );
+            User user = userRepository.findByEmail(loginRequestDto.getEmail());
+            userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().getName())));
+        } catch (BadCredentialsException e) {
+            throw e;
+        }
+        return userDetails;
     }
 
     @Override

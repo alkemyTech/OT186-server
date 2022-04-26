@@ -21,11 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserServiceImp userServiceImp;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
         auth
                 .userDetailsService(userServiceImp)
                 .passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -33,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
                 .antMatchers("organization/public/*").permitAll()
-                .antMatchers("/activities/post").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
