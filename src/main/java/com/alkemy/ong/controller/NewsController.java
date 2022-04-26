@@ -22,7 +22,7 @@ public class NewsController {
         List<NewsDTO> newsDTOList = newsService.getAllNews();
         return ResponseEntity.ok().body(newsDTOList);
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<NewsDTO> getByID (@PathVariable UUID id){
         NewsDTO dto = newsService.getDetailsById(id);
