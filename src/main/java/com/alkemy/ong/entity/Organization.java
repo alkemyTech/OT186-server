@@ -27,6 +27,7 @@ public class Organization {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     private String name;

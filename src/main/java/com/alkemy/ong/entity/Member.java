@@ -23,6 +23,7 @@ public class Member {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     private boolean deleted = Boolean.FALSE;
