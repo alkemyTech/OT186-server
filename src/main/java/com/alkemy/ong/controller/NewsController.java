@@ -17,19 +17,22 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    ////Trae todas las news en una list
     @GetMapping()
     public ResponseEntity<List<NewsDTO>> getAll(){
         List<NewsDTO> newsDTOList = newsService.getAllNews();
         return ResponseEntity.ok().body(newsDTOList);
     }
-
-    ///OT186-45 detalle news por id
+    
     @GetMapping("/{id}")
     public ResponseEntity<NewsDTO> getByID (@PathVariable UUID id){
         NewsDTO dto = newsService.getDetailsById(id);
         return ResponseEntity.ok().body(dto);
     }
 
+    @PostMapping
+    public ResponseEntity<NewsDTO> save (NewsDTO newsDTO){
+        NewsDTO newsSaved = newsService.save(newsDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newsSaved);
+    }
 
 }
