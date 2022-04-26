@@ -24,6 +24,7 @@ public class Activity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @org.hibernate.annotations.Type(type="uuid-char")
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
     @Column(name = "name", nullable = false)
