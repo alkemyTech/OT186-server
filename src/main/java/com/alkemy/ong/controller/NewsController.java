@@ -17,7 +17,7 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")////actualiza categoria por id
     public ResponseEntity<NewsDTO> update (@PathVariable UUID id, NewsDTO newsDTO){
         NewsDTO newsUpdated = newsService.update(id, newsDTO);
         return ResponseEntity.ok().body(newsUpdated);
