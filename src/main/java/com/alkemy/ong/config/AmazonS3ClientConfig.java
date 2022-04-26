@@ -1,5 +1,5 @@
 package com.alkemy.ong.config;
-
+/*
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -35,3 +35,4 @@ public class AmazonS3ClientConfig {
         return BUCKET_NAME;
     }
 }
+*/
