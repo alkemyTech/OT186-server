@@ -4,6 +4,7 @@ import com.alkemy.ong.services.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,14 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-<<<<<<< HEAD:src/main/java/com/alkemy/ong/security/WebSecurityConfig.java
                 .antMatchers(HttpMethod.POST,"/auth/register").permitAll()
                 .antMatchers(HttpMethod.GET,"/login/{id_user").permitAll()
                 .antMatchers("/auth/login").permitAll()
-=======
                 .antMatchers("/auth/*").permitAll()
                 .antMatchers("organization/public/*").permitAll()
->>>>>>> origin/main:src/main/java/com/alkemy/ong/auth/config/WebSecurityConfig.java
                 .anyRequest()
                 .authenticated()
                 .and()
