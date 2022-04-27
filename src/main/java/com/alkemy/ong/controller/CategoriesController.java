@@ -4,9 +4,11 @@ import com.alkemy.ong.dto.CategoriesBasicDTO;
 import com.alkemy.ong.dto.CategoriesDTO;
 import com.alkemy.ong.services.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,4 +31,9 @@ public class CategoriesController {
         return ResponseEntity.ok().body(categoriesBasicDTO);
     }
 
+    @PostMapping
+    public ResponseEntity<CategoriesDTO> save(@Valid @RequestBody CategoriesDTO dto) {
+        CategoriesDTO categorySaved = categoriesService.save(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
+    }
 }
