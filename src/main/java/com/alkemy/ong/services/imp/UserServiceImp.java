@@ -2,7 +2,9 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
+import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserMapper userMapper;
     @Autowired @Lazy
     private PasswordEncoder passwordEncoder;
     @Autowired @Lazy
@@ -85,5 +88,11 @@ public class UserServiceImp implements UserDetailsService, UserService {
             else
                 return false;
         }
+    }
+
+    public List<UserDTO> getAll() {
+        List<User> entities = this.userRepository.findAll();
+        List<UserDTO> result = this.userMapper.userEntityList2DTOList(entities);
+        return result;
     }
 }
