@@ -17,7 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
@@ -60,5 +63,14 @@ public class UserServiceImp implements UserDetailsService, UserService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().getName())));
+    }
+
+    public void delete(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()){
+            userRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("User not found.");
+        }
     }
 }
