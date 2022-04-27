@@ -27,8 +27,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private UserServiceImp userService;
     @Autowired
     private JwtUtils jwtUtils;
-    @Autowired @Lazy
-    private AuthenticationManager authenticationManager;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -51,10 +49,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             if (jwtUtils.validateToken(jwt, userDetails)) {
 
                 UsernamePasswordAuthenticationToken authRequest =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
+                        new UsernamePasswordAuthenticationToken(userDetails, null, null);
 
-                Authentication auth = authenticationManager.authenticate(authRequest);
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                SecurityContextHolder.getContext().setAuthentication(authRequest);
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);

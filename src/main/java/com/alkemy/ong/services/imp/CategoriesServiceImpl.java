@@ -50,4 +50,11 @@ public class CategoriesServiceImpl implements CategoriesService {
             throw new EntityNotFoundException("Category not found");
         }
     }
+
+    public CategoriesDTO save(CategoriesDTO dto) {
+        Categories entitySaved = categoriesRepository.save(categoriesMapper.categoriesDTO2Entity(dto));
+        CategoriesDTO result = categoriesMapper.categories2DTO(entitySaved);
+        return result;
+    }
+
 }
