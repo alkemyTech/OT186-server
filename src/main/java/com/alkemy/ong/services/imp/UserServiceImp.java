@@ -1,6 +1,7 @@
 package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
+import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
@@ -17,7 +18,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
@@ -28,6 +33,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired @Lazy
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtUtils jwtUtils;
 
 
     public User save(User user){
@@ -60,5 +67,23 @@ public class UserServiceImp implements UserDetailsService, UserService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().getName())));
+    }
+
+    public Boolean validateRole(UUID id, HttpServletRequest req){
+
+        String token = req.getHeader("Authorization").replace("Bearer ", "");
+        String email = jwtUtils.extractUsername(token);
+        UserDetails userDetails = this.loadUserByUsername(email);
+
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            return true;
+        }else{
+            User user = userRepository.findByEmail(email);
+
+            if (id.compareTo(user.getId()) == 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

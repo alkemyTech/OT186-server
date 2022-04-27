@@ -31,5 +31,9 @@ public class NewsController {
         return ResponseEntity.ok().body(dto);
     }
 
-
+    @PostMapping
+    public ResponseEntity<NewsDTO> save (NewsDTO newsDTO){
+        NewsDTO newsSaved = newsService.save(newsDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newsSaved);
+    }
 }
