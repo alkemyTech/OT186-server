@@ -86,4 +86,13 @@ public class UserServiceImp implements UserDetailsService, UserService {
                 return false;
         }
     }
+
+    public void delete(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()){
+            userRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("User not found.");
+        }
+    }
 }
