@@ -12,5 +12,6 @@ public interface CategoriesService {
     List<CategoriesDTO> getAllCategories();
     CategoriesDTO getDetailsById(UUID id);
     CategoriesDTO save(CategoriesDTO dto);
+    CategoriesDTO update(UUID id, CategoriesDTO dto);
 
 }
