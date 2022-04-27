@@ -13,6 +13,5 @@ public interface UserService {
     UserDetails loadUserByUsername(String email);
     User save(User user);
     UserDetails login(LoginRequestDto loginRequestDto) throws BadCredentialsException;
-    void delete(UUID id);
     Boolean validateRole(UUID id, HttpServletRequest req);
 }

@@ -69,15 +69,6 @@ public class UserServiceImp implements UserDetailsService, UserService {
                 Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().getName())));
     }
 
-    public void delete(UUID id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            userRepository.deleteById(id);
-        }else{
-            throw new EntityNotFoundException("User not found.");
-        }
-    }
-
     public Boolean validateRole(UUID id, HttpServletRequest req){
 
         String token = req.getHeader("Authorization").replace("Bearer ", "");
