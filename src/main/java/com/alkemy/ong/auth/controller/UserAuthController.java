@@ -3,6 +3,7 @@ package com.alkemy.ong.auth.controller;
 import com.alkemy.ong.auth.dto.AuthenticationResponse;
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.services.UserService;
@@ -11,12 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @RestController
@@ -54,4 +53,8 @@ public class UserAuthController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
+    @GetMapping(value = "/me", produces = {"application/json"})
+    public ResponseEntity<UserDto> getUserDetails(Principal principal) {
+        return ResponseEntity.ok(userService.findBy(principal.getName()));
+    }
 }

@@ -4,7 +4,9 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtils jwtUtils;
-
+    @Autowired
+    private UserMapper userMapper;
 
     public User save(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -88,4 +91,17 @@ public class UserServiceImp implements UserDetailsService, UserService {
                 return false;
         }
     }
+
+        @Override
+        public UserDto findBy(String username) throws UsernameNotFoundException {
+            return userMapper.map(getUser(username));
+        }
+
+        private User getUser(String username) {
+            User user = userRepository.findByEmail(username);
+            if (user == null) {
+                throw new UsernameNotFoundException("User Not Found");
+            }
+            return user;
+        }
 }
