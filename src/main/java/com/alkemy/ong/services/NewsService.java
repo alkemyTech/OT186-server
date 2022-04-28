@@ -11,6 +11,5 @@ public interface NewsService {
     List<NewsDTO> getAllNews();
     NewsDTO save(NewsDTO newsDTO);
     NewsDTO update(UUID id, NewsDTO newsDTO);
-    void delete(UUID id);
 
 }
