@@ -9,8 +9,8 @@ target/
 *.iws
 *.iml
 *.ipr
-src/main/java/com/alkemy/ong/auth/config/WebSecurityConfig.java
-src/main/resources/application.properties
+!**/src/main/java/com/alkemy/ong/auth/config/WebSecurityConfig.java
+!**/src/main/resources/application.properties
 
 
 
