@@ -1,4 +1,3 @@
-package com.alkemy.ong.auth.config;
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import com.alkemy.ong.services.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
 
@@ -55,9 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/auth/*").permitAll()
-                .antMatchers("/organization/public/*").permitAll()
-                .antMatchers("/activities/*").permitAll()
+                .antMatchers( "/auth/*").permitAll()
+                .antMatchers("organization/public/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().exceptionHandling()
@@ -69,4 +67,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+
 }
