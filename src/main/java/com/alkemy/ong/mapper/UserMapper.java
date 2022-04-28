@@ -30,13 +30,4 @@ public class UserMapper {
         }
         return dtos;
     }
-
-    public UserDto map(User user) {
-        UserDto userResponse = new UserDto();
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setPhoto(user.getPhoto());
-        return userResponse;
-    }
 }

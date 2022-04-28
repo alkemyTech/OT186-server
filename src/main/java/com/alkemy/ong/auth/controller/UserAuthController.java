@@ -3,7 +3,7 @@ package com.alkemy.ong.auth.controller;
 import com.alkemy.ong.auth.dto.AuthenticationResponse;
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
-import com.alkemy.ong.dto.UserDto;
+import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.services.UserService;
@@ -53,8 +53,8 @@ public class UserAuthController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @GetMapping(value = "/me", produces = {"application/json"})
-    public ResponseEntity<UserDto> getUserDetails(Principal principal) {
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getUserDetails(Principal principal) {
         return ResponseEntity.ok(userService.findBy(principal.getName()));
     }
 }

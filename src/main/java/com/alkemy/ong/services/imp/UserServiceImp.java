@@ -4,6 +4,7 @@ import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
@@ -41,7 +42,11 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Autowired
     private JwtUtils jwtUtils;
 
-    public User save(User user){
+    public User save(User user)
+            throws EmailAlreadyExistException {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new EmailAlreadyExistException();
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
@@ -107,8 +112,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
     @Override
-    public UserDto findBy(String username) throws UsernameNotFoundException {
-        return userMapper.map(getUser(username));
+    public UserDTO findBy(String username) throws UsernameNotFoundException {
+        return userMapper.userEntity2DTO(getUser(username));
     }
 
     private User getUser(String username) {

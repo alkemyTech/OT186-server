@@ -18,7 +18,7 @@ public interface UserService {
     User save(User user) throws EmailAlreadyExistException;
     UserDetails login(LoginRequestDto loginRequestDto) throws BadCredentialsException;
     Boolean validateRole(UUID id, HttpServletRequest req);
-    UserDto findBy(String username) throws UsernameNotFoundException;
+    UserDTO findBy(String username) throws UsernameNotFoundException;
     void delete(UUID id);
     List<UserDTO> getAll();
 }
