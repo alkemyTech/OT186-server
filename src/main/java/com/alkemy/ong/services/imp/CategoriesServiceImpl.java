@@ -57,4 +57,16 @@ public class CategoriesServiceImpl implements CategoriesService {
         return result;
     }
 
+    public CategoriesDTO update(UUID id, CategoriesDTO dto) {
+        Optional<Categories> result = categoriesRepository.findById(id);
+        if (result.isPresent()) {
+            Categories entity = categoriesMapper.updateDTO2Entity(result.get(), dto);
+            Categories entityUpdated = categoriesRepository.save(entity);
+            CategoriesDTO dtoUpdated = categoriesMapper.categories2DTO(entityUpdated);
+            return dtoUpdated;
+        } else {
+            throw new EntityNotFoundException("Category not found");
+        }
+    }
+
 }

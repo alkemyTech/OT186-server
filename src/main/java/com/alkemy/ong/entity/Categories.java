@@ -16,8 +16,8 @@ import java.util.UUID;
 @Table(name="categories")
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id=?")
-@Where(clause = "softDelete=false")
+@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete = false")
 public class Categories {
 
     @Id
@@ -41,12 +41,10 @@ public class Categories {
 
     @NonNull
     @Column(name = "timestamps")
-    //@Temporal(TemporalType.DATE)
     private Timestamp timestamp = Timestamp.from(Instant.now());
 
     @NonNull
-    @Column(name = "softDelete")
+    @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
-
-
+    
 }

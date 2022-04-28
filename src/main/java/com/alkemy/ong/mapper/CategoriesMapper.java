@@ -52,6 +52,11 @@ public class CategoriesMapper {
         return dtos;
     }
 
-
+    public Categories updateDTO2Entity(Categories categories, CategoriesDTO dto){
+        categories.setName(dto.getName());
+        categories.setDescription(dto.getDescription());
+        categories.setImage(dto.getImage());
+        return categories;
+    }
 
 }
