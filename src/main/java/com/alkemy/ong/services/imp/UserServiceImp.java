@@ -41,7 +41,6 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Autowired
     private JwtUtils jwtUtils;
 
-
     public User save(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
@@ -107,4 +106,16 @@ public class UserServiceImp implements UserDetailsService, UserService {
         }
     }
 
+    @Override
+    public UserDto findBy(String username) throws UsernameNotFoundException {
+        return userMapper.map(getUser(username));
+    }
+
+    private User getUser(String username) {
+            User user = userRepository.findByEmail(username);
+            if (user == null) {
+                throw new UsernameNotFoundException("User Not Found");
+            }
+            return user;
+        }
 }

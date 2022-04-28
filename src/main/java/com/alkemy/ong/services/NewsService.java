@@ -12,5 +12,4 @@ public interface NewsService {
     NewsDTO save(NewsDTO newsDTO);
     NewsDTO update(UUID id, NewsDTO newsDTO);
     void delete(UUID id);
-
 }

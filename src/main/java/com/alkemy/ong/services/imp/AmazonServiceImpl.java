@@ -1,6 +1,6 @@
 package com.alkemy.ong.services.imp;
 
-import com.alkemy.ong.config.AmazonS3ClientConfig;
+import com.alkemy.ong.auth.config.AmazonS3ClientConfig;
 import com.alkemy.ong.services.IAmazonService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -57,4 +57,3 @@ public class AmazonServiceImpl implements IAmazonService {
         amazonS3.deleteObject(new DeleteObjectRequest(amazonS3Client.getBUCKET_NAME(), fileName));
     }
 }
-

@@ -9,7 +9,6 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -27,7 +26,7 @@ public class User {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
+    @JoinColumn(name = "roles_id")
     private Role roles;
 
     @NonNull
@@ -53,6 +52,8 @@ public class User {
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
 
+    public User(String firstName, String lastName, String email, String photo) {
+    }
 }
 
 

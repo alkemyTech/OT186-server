@@ -44,5 +44,5 @@ public class News {
 	@ManyToOne
 	@JoinColumn(name="categories_id")
 	private Categories categories;
-		
+
 }
