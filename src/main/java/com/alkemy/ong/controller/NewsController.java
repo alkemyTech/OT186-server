@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class NewsController {
     private NewsService newsService;
 
     @PutMapping("/{id}")////actualiza categoria por id
-    public ResponseEntity<NewsDTO> update (@PathVariable UUID id, NewsDTO newsDTO){
+    public ResponseEntity<NewsDTO> update (@PathVariable UUID id, @RequestBody NewsDTO newsDTO){
         NewsDTO newsUpdated = newsService.update(id, newsDTO);
         return ResponseEntity.ok().body(newsUpdated);
     }
@@ -36,7 +37,7 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsDTO> save (NewsDTO newsDTO){
+    public ResponseEntity<NewsDTO> save (@Valid @RequestBody NewsDTO newsDTO){
         NewsDTO newsSaved = newsService.save(newsDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newsSaved);
     }

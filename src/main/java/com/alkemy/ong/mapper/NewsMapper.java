@@ -42,4 +42,12 @@ public class NewsMapper {
         return dtos;
     }
 
+    public News updateNewsDTO2Entity(News entity, NewsDTO dto){
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setImage(dto.getImage());
+        entity.setCategories(dto.getCategories());
+        return entity;
+    }
+
 }
