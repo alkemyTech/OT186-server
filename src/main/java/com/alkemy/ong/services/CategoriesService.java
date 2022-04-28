@@ -13,5 +13,6 @@ public interface CategoriesService {
     CategoriesDTO getDetailsById(UUID id);
     CategoriesDTO save(CategoriesDTO dto);
     CategoriesDTO update(UUID id, CategoriesDTO dto);
+    void delete(UUID id);
 
 }

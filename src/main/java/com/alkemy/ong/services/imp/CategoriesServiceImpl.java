@@ -69,4 +69,13 @@ public class CategoriesServiceImpl implements CategoriesService {
         }
     }
 
+    public void delete(UUID id) {
+        Optional<Categories> result = categoriesRepository.findById(id);
+        if (result.isPresent()) {
+            categoriesRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Category not found");
+        }
+    }
+
 }
