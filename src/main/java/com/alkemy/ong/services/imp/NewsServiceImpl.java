@@ -38,4 +38,19 @@ public class NewsServiceImpl implements NewsService {
         return result;
     }
 
+    @Override
+    public NewsDTO save(NewsDTO newsDTO) {
+        return null;
+    }
+
+    @Override
+    public NewsDTO update(UUID id, NewsDTO newsDTO) {
+        return null;
+    }
+
+    @Override
+    public void delete(UUID id) {
+
+    }
+
 }

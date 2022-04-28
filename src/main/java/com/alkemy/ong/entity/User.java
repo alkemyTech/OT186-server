@@ -26,7 +26,7 @@ public class User {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
+    @JoinColumn(name = "roles_id")
     private Role roles;
 
     @NonNull
