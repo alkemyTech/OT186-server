@@ -40,5 +40,4 @@ public class NewsController {
         NewsDTO newsUpdated = newsService.update(id, newsDTO);
         return ResponseEntity.ok().body(newsUpdated);
     }
-
 }
