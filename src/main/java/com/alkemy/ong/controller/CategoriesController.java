@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -20,13 +21,13 @@ public class CategoriesController {
     private CategoriesService categoriesService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriesDTO> getById (@PathVariable UUID id){
-            CategoriesDTO dto = categoriesService.getDetailsById(id);
-            return ResponseEntity.ok().body(dto);
+    public ResponseEntity<CategoriesDTO> getById(@PathVariable UUID id) {
+        CategoriesDTO dto = categoriesService.getDetailsById(id);
+        return ResponseEntity.ok().body(dto);
     }
 
     @GetMapping()
-    public ResponseEntity<List<CategoriesBasicDTO>> getAll (){
+    public ResponseEntity<List<CategoriesBasicDTO>> getAll() {
         List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
         return ResponseEntity.ok().body(categoriesBasicDTO);
     }
@@ -41,6 +42,16 @@ public class CategoriesController {
     public ResponseEntity<CategoriesDTO> update(@PathVariable UUID id, @Valid @RequestBody CategoriesDTO dto) {
         CategoriesDTO CategoriesUpdated = categoriesService.update(id, dto);
         return ResponseEntity.ok().body(CategoriesUpdated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable UUID id) {
+        try {
+            categoriesService.delete(id);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
