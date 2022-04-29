@@ -12,11 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;
-
 
 @RestController
 @RequestMapping("/auth")
@@ -41,15 +43,20 @@ public class UserAuthController {
                     .body("Email Alredy Exists, the result is: " + false);
         }
     }
+    
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody @Valid LoginRequestDto loginRequestDto){
+
         UserDetails userDetails;
         try {
             userDetails = userService.login(loginRequestDto);
+
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse("false"));
         }
+
         final String jwt = jwtUtils.generateToken(userDetails);
+
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
