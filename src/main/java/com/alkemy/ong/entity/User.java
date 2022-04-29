@@ -23,9 +23,14 @@ public class User {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
+<<<<<<< HEAD
     @OneToOne(optional = false)
+=======
+    @ManyToOne
+>>>>>>> origin/main
     @JoinColumn(name = "id_role")
     private Role roles;
 

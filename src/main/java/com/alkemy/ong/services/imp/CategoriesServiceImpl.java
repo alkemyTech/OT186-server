@@ -3,7 +3,10 @@ package com.alkemy.ong.services.imp;
 import com.alkemy.ong.dto.CategoriesBasicDTO;
 import com.alkemy.ong.dto.CategoriesDTO;
 import com.alkemy.ong.entity.Categories;
+<<<<<<< HEAD
 import com.alkemy.ong.exception.ExceptionEnum;
+=======
+>>>>>>> origin/main
 import com.alkemy.ong.mapper.CategoriesMapper;
 import com.alkemy.ong.repository.CategoriesRepository;
 import com.alkemy.ong.services.CategoriesService;
@@ -51,4 +54,35 @@ public class CategoriesServiceImpl implements CategoriesService {
             throw new EntityNotFoundException("Category not found");
         }
     }
+<<<<<<< HEAD
+=======
+
+    public CategoriesDTO save(CategoriesDTO dto) {
+        Categories entitySaved = categoriesRepository.save(categoriesMapper.categoriesDTO2Entity(dto));
+        CategoriesDTO result = categoriesMapper.categories2DTO(entitySaved);
+        return result;
+    }
+
+    public CategoriesDTO update(UUID id, CategoriesDTO dto) {
+        Optional<Categories> result = categoriesRepository.findById(id);
+        if (result.isPresent()) {
+            Categories entity = categoriesMapper.updateDTO2Entity(result.get(), dto);
+            Categories entityUpdated = categoriesRepository.save(entity);
+            CategoriesDTO dtoUpdated = categoriesMapper.categories2DTO(entityUpdated);
+            return dtoUpdated;
+        } else {
+            throw new EntityNotFoundException("Category not found");
+        }
+    }
+
+    public void delete(UUID id) {
+        Optional<Categories> result = categoriesRepository.findById(id);
+        if (result.isPresent()) {
+            categoriesRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Category not found");
+        }
+    }
+
+>>>>>>> origin/main
 }

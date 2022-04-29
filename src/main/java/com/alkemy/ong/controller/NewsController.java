@@ -35,6 +35,12 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newsSaved);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<NewsDTO> update (@PathVariable UUID id, @RequestBody NewsDTO newsDTO){
+        NewsDTO newsUpdated = newsService.update(id, newsDTO);
+        return ResponseEntity.ok().body(newsUpdated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete (@PathVariable UUID id){
         newsService.delete(id);

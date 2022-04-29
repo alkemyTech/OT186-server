@@ -16,14 +16,15 @@ import java.util.UUID;
 @Table(name="categories")
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id=?")
-@Where(clause = "softDelete=false")
+@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete = false")
 public class Categories {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "ID")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     @NonNull
@@ -40,12 +41,10 @@ public class Categories {
 
     @NonNull
     @Column(name = "timestamps")
-    //@Temporal(TemporalType.DATE)
     private Timestamp timestamp = Timestamp.from(Instant.now());
 
     @NonNull
-    @Column(name = "softDelete")
+    @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
-
-
+    
 }
