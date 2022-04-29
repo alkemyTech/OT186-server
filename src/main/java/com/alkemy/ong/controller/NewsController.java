@@ -17,9 +17,26 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    ///OT186-48 eliminar news por id
+    @GetMapping()
+    public ResponseEntity<List<NewsDTO>> getAll(){
+        List<NewsDTO> newsDTOList = newsService.getAllNews();
+        return ResponseEntity.ok().body(newsDTOList);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NewsDTO> getByID (@PathVariable UUID id){
+        NewsDTO dto = newsService.getDetailsById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @PostMapping
+    public ResponseEntity<NewsDTO> save (NewsDTO newsDTO){
+        NewsDTO newsSaved = newsService.save(newsDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newsSaved);
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<void> delete (@PathVariable UUID id){
+    public ResponseEntity<Void> delete (@PathVariable UUID id){
         newsService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -38,4 +38,29 @@ public class NewsServiceImpl implements NewsService {
         return result;
     }
 
+    public NewsDTO save(NewsDTO newsDTO) {
+        News entitySaved = newsRepository.save(newsMapper.newsDTO2Entity(newsDTO));
+        NewsDTO result = newsMapper.news2DTO(entitySaved);
+        return result;
+    }
+
+    public NewsDTO update(UUID id, NewsDTO newsDTO) {
+        Optional<News> result = newsRepository.findById(id);
+        if(result.isPresent()){
+            News entity = newsMapper.updateNewsDTO2Entity(result.get(),newsDTO);
+            News entityUpdated = newsRepository.save(entity);
+            NewsDTO dtoUpdated = newsMapper.news2DTO(entityUpdated);
+            return dtoUpdated;
+        }else{
+            throw new EntityNotFoundException("News not found");
+        }
+    }
+
+    public void delete(UUID id){
+        if(newsRepository.findById(id) == null){
+            throw new EntityNotFoundException("News not found");
+        }
+        newsRepository.deleteById(id);
+    }
+
 }
