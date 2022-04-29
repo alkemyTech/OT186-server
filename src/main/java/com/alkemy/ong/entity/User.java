@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -26,7 +27,7 @@ public class User {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "roles_id")
+    @JoinColumn(name = "id_role")
     private Role roles;
 
     @NonNull
