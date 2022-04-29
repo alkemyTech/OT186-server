@@ -3,10 +3,6 @@ package com.alkemy.ong.services.imp;
 import com.alkemy.ong.dto.CategoriesBasicDTO;
 import com.alkemy.ong.dto.CategoriesDTO;
 import com.alkemy.ong.entity.Categories;
-<<<<<<< HEAD
-import com.alkemy.ong.exception.ExceptionEnum;
-=======
->>>>>>> origin/main
 import com.alkemy.ong.mapper.CategoriesMapper;
 import com.alkemy.ong.repository.CategoriesRepository;
 import com.alkemy.ong.services.CategoriesService;
@@ -54,8 +50,6 @@ public class CategoriesServiceImpl implements CategoriesService {
             throw new EntityNotFoundException("Category not found");
         }
     }
-<<<<<<< HEAD
-=======
 
     public CategoriesDTO save(CategoriesDTO dto) {
         Categories entitySaved = categoriesRepository.save(categoriesMapper.categoriesDTO2Entity(dto));
@@ -84,5 +78,4 @@ public class CategoriesServiceImpl implements CategoriesService {
         }
     }
 
->>>>>>> origin/main
 }

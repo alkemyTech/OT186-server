@@ -22,11 +22,8 @@ public class CategoriesMapper {
     public CategoriesDTO categories2DTO(Categories entity){
         CategoriesDTO dto = new CategoriesDTO();
         dto.setName(entity.getName());
-<<<<<<< HEAD
-=======
-	    dto.setDescription(entity.getDescription());
-	    dto.setImage(entity.getImage());
->>>>>>> origin/main
+        dto.setDescription(entity.getDescription());
+        dto.setImage(entity.getImage());
         return dto;
     }
 
@@ -55,15 +52,11 @@ public class CategoriesMapper {
         return dtos;
     }
 
-<<<<<<< HEAD
-
-=======
     public Categories updateDTO2Entity(Categories categories, CategoriesDTO dto){
         categories.setName(dto.getName());
         categories.setDescription(dto.getDescription());
         categories.setImage(dto.getImage());
         return categories;
     }
->>>>>>> origin/main
 
 }

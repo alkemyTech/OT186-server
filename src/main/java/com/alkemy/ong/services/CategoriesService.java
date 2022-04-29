@@ -11,11 +11,8 @@ public interface CategoriesService {
     List<CategoriesBasicDTO> getBasicDTOList();
     List<CategoriesDTO> getAllCategories();
     CategoriesDTO getDetailsById(UUID id);
-<<<<<<< HEAD
-=======
     CategoriesDTO save(CategoriesDTO dto);
     CategoriesDTO update(UUID id, CategoriesDTO dto);
     void delete(UUID id);
->>>>>>> origin/main
 
 }
