@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
 
@@ -36,6 +38,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         activity.setName(name);
         activity.setContent(content);
         activity.setImage(image);
+        activity.setSoftDelete(false);
+        activity.setTimestamps(new Timestamp(System.currentTimeMillis()));
         return activity;
     }
 }
