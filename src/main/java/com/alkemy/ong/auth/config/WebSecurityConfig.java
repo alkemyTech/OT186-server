@@ -1,3 +1,5 @@
+package com.alkemy.ong.auth.config;
+
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import com.alkemy.ong.services.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
