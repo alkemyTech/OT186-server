@@ -57,3 +57,4 @@ public class AmazonServiceImpl implements IAmazonService {
         amazonS3.deleteObject(new DeleteObjectRequest(amazonS3Client.getBUCKET_NAME(), fileName));
     }
 }
+
