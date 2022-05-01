@@ -56,4 +56,11 @@ public class NewsServiceImpl implements NewsService {
         }
     }
 
+    public void delete(UUID id){
+        if(newsRepository.findById(id) == null){
+            throw new EntityNotFoundException("News not found");
+        }
+        newsRepository.deleteById(id);
+    }
+
 }
