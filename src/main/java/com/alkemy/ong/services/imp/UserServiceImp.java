@@ -4,7 +4,7 @@ import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
-import com.alkemy.ong.mapper.UserMapper;
+import com.alkemy.ong.dto.mapper.UserMapper;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

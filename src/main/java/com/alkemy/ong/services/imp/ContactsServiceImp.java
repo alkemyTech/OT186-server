@@ -2,7 +2,7 @@ package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.dto.ContactsDTO;
 import com.alkemy.ong.entity.Contacts;
-import com.alkemy.ong.mapper.ContactsMapper;
+import com.alkemy.ong.dto.mapper.ContactsMapper;
 import com.alkemy.ong.repository.ContactsRepository;
 import com.alkemy.ong.services.ContactsService;
 import lombok.AllArgsConstructor;
