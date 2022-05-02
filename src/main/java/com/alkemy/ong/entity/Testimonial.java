@@ -1,6 +1,7 @@
 package com.alkemy.ong.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -37,6 +38,7 @@ public class Testimonial {
 
     private boolean deleted = Boolean.FALSE;
 
+    @CreationTimestamp
     @Column(name = "create_at", nullable = false)
     //@Temporal(TemporalType.DATE)
     private Timestamp createAt;
