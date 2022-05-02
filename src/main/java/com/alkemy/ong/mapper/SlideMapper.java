@@ -43,4 +43,19 @@ public class SlideMapper {
         return dtos;
     }
 
+    public List<SlideDTO> slideDTOList(List<Slide> entities){
+        List<SlideDTO> dtos = new ArrayList<>();
+        SlideDTO basicDTO;
+        for(Slide entity : entities){
+            basicDTO = new SlideDTO();
+            basicDTO.setId(entity.getId());
+            basicDTO.setImageUrl(entity.getImageUrl());
+            basicDTO.setText(entity.getText());
+            basicDTO.setOrder(entity.getOrder());
+            basicDTO.setOrganizationId(entity.getOrganizationId());
+            dtos.add(basicDTO);
+        }
+        return dtos;
+    }
+
 }
