@@ -39,10 +39,4 @@ public class SlideServiceImpl implements SlideService {
         return result;
     }
 
-    public List<SlideDTO> getAllSlide(){
-        List<Slide> slide = slideRepository.findAll();
-        List<SlideDTO> result = slideMapper.slideDTOList(slide);
-        return result;
-    }
-
 }

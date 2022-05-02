@@ -3,7 +3,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.dto.OrganizationDTO;
 import com.alkemy.ong.entity.Organization;
 import com.alkemy.ong.repository.OrganizationRepository;
-import com.alkemy.ong.services.OrganizationService;
+import com.alkemy.ong.config.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
