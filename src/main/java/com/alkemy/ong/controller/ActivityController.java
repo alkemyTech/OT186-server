@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.ActivityDTO;
-import com.alkemy.ong.config.services.ActivityService;
+import com.alkemy.ong.services.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

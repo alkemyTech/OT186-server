@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.TestimonialDTO;
-import com.alkemy.ong.config.services.TestimonialService;
+import com.alkemy.ong.services.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

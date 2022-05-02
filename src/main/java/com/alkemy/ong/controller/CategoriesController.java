@@ -2,7 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CategoriesBasicDTO;
 import com.alkemy.ong.dto.CategoriesDTO;
-import com.alkemy.ong.config.services.CategoriesService;
+import com.alkemy.ong.services.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
