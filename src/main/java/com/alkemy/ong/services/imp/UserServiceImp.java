@@ -43,14 +43,15 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private JwtUtils jwtUtils;
 
 
-    public User save(User user)
+    public UserDTO save(UserDTO userDTO)
             throws EmailAlreadyExistException {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new EmailAlreadyExistException();
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return user;
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        User entityRegister = userRepository.save(userMapper.userDTO2(userDTO));
+        UserDTO result = userMapper.userEntity2DTO(entityRegister);
+        return result;
     }
 
     public UserDetails login(LoginRequestDto loginRequestDto) throws BadCredentialsException {

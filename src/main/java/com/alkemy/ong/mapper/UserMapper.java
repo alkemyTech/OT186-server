@@ -22,6 +22,17 @@ public class UserMapper {
         return userDTO;
     }
 
+    public User userDTO2(UserDTO dto){
+        User user = new User();
+        user.setId(dto.getId());
+        user.setRoles(dto.getRoles());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setPhoto(dto.getPhoto());
+        return user;
+    }
 
     public List<UserDTO> userEntityList2DTOList(List<User> entities){
         List<UserDTO> dtos = new ArrayList<>();
