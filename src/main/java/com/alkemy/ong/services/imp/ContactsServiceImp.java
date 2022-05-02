@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +29,11 @@ public class ContactsServiceImp implements ContactsService {
         ContactsDTO result = this.contactsMapper.contactsEntity2DTO(entitySaved);
         return result;
     }
+
+    public List<ContactsDTO> getAllContacts() {
+        List<Contacts> contacts = contactsRepository.findAll();
+        List<ContactsDTO> result = contactsMapper.entity2DTOList(contacts);
+        return result;
+    }
+
 }
