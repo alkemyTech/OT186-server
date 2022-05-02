@@ -20,5 +20,6 @@ public interface UserService {
     void delete(UUID id);
     List<UserDTO> getAll();
     UserDTO findBy(String username) throws UsernameNotFoundException;
+    UserDTO update(UUID id, UserDTO userDTO);
 
 }

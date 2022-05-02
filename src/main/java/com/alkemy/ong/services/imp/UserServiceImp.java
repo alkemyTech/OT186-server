@@ -5,6 +5,7 @@ import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
@@ -123,5 +124,17 @@ public class UserServiceImp implements UserDetailsService, UserService {
             throw new UsernameNotFoundException("User Not Found");
         }
         return user;
+    }
+
+    public UserDTO update(UUID id, UserDTO userDTO) {
+        Optional<User> entity = this.userRepository.findById(id);
+        if(!entity.isPresent()) {
+            throw new ParamNotFound("Invalid User ID");
+        }
+
+        this.userMapper.userEntityRefreshValues(entity.get(),userDTO);
+        User entitySaved = this.userRepository.save(entity.get());
+        UserDTO result = this.userMapper.userEntity2DTO(entitySaved);
+        return result;
     }
 }
