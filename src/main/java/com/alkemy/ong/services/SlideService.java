@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface SlideService {
     SlideDTO getDetailsById(UUID id);
     List<SlideDTOBasic> getAllSlideBasic();
+    List<SlideDTO> getAllSlide();
 }
