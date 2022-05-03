@@ -1,7 +1,9 @@
 package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.dto.ActivityDTO;
+import com.alkemy.ong.dto.TestimonialDTO;
 import com.alkemy.ong.entity.Activity;
+import com.alkemy.ong.entity.Testimonial;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,5 +25,13 @@ public class ActivityMapper {
         activity.setContent(dto.getContent());
         activity.setImage(dto.getImage());
         return activity;
+    }
+
+    public Activity updateActivity2DTO(Activity entity, ActivityDTO dto){
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setContent(dto.getContent());
+        entity.setImage(dto.getImage());
+        return entity;
     }
 }

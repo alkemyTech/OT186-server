@@ -38,8 +38,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         activity.setName(name);
         activity.setContent(content);
         activity.setImage(image);
-        activity.setSoftDelete(false);
-        activity.setTimestamps(new Timestamp(System.currentTimeMillis()));
+        activity.setSoft_delete(false);
+        activity.setCreateAt(new Timestamp(System.currentTimeMillis()));
         return activity;
     }
 }

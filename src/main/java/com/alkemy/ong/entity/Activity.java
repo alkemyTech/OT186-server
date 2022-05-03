@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -33,9 +34,11 @@ public class Activity {
     private String content;
     @Column(name = "image", nullable = false)
     private String image;
-    @Column(name = "timestamp")
-    private Timestamp timestamps;
+    @CreationTimestamp
+    @Column(name = "create_at", nullable = false)
+    //@Temporal(TemporalType.DATE)
+    private Timestamp createAt;
     @Column(name = "soft_delete")
-    private Boolean softDelete;
+    private boolean soft_delete = Boolean.FALSE;
 
 }
