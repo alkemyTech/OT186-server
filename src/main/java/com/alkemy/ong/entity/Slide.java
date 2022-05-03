@@ -29,6 +29,7 @@ public class Slide {
     @Column(name = "order_slide", nullable = false)
     private Long order;
     @Column(name ="organization_id", nullable = false, columnDefinition = "VARCHAR(255)")
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID organizationId;
 
 }

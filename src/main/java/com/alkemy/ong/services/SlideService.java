@@ -10,4 +10,5 @@ public interface SlideService {
     SlideDTO getDetailsById(UUID id);
     List<SlideDTOBasic> getAllSlideBasic();
     void delete(UUID id);
+    SlideDTO update(UUID id, SlideDTO slideDTO);
 }

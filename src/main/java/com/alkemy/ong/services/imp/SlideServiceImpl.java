@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.SlideDTO;
 import com.alkemy.ong.dto.SlideDTOBasic;
 import com.alkemy.ong.entity.Slide;
 import com.alkemy.ong.exception.EntityNotFoundException;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.SlideMapper;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.services.SlideService;
@@ -47,5 +48,21 @@ public class SlideServiceImpl implements SlideService {
             throw new EntityNotFoundException("Slide not found.");
         }
     }
+
+    public SlideDTO update(UUID id, SlideDTO slideDTO) {
+        Optional<Slide> entity = this.slideRepository.findById(id);
+        if(!entity.isPresent()) {
+            throw new ParamNotFound("Invalid Slide ID");
+        }
+
+        this.slideMapper.slideEntityRefreshValues(entity.get(),slideDTO);
+        Slide entitySaved = this.slideRepository.save(entity.get());
+        SlideDTO result = this.slideMapper.slideEntity2DTO(entitySaved);
+        return result;
+    }
+
+
+
+
 
 }
