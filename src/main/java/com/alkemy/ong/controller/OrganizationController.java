@@ -1,13 +1,13 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.OrganizationDTO;
-import com.alkemy.ong.entity.Organization;
-import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -15,7 +15,6 @@ import java.util.UUID;
 public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
-    private OrganizationRepository organizationRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizationDTO> getDetailsById(@PathVariable UUID id){
@@ -24,8 +23,10 @@ public class OrganizationController {
 
     }
 
-    @PostMapping("/update")
-    public Organization update(@RequestBody Organization organization){
-        return organizationRepository.save(organization);
+    @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<OrganizationDTO> update(@PathVariable UUID id, @Valid @RequestBody OrganizationDTO dto){
+        OrganizationDTO organizationDTO = organizationService.update(id, dto);
+        return ResponseEntity.ok().body(organizationDTO);
     }
 }
