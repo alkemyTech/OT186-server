@@ -42,4 +42,11 @@ public class UserMapper {
         return dtos;
     }
 
+    public void userEntityRefreshValues(User user, UserDTO userDTO) {
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhoto(userDTO.getPhoto());
+    }
+
 }
