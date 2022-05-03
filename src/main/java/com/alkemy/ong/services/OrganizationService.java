@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface OrganizationService {
     OrganizationDTO getDetailsById(UUID id);
+    OrganizationDTO update(UUID id, OrganizationDTO dto);
 }

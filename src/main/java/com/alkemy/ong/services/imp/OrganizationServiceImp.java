@@ -6,26 +6,20 @@ import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.OrganizationMapper;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.services.OrganizationService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
 
-
-@NoArgsConstructor
-@AllArgsConstructor
 @Service
 public class OrganizationServiceImp implements OrganizationService {
     @Autowired
-    OrganizationRepository organizationRepository;
+    private OrganizationRepository organizationRepository;
 
     @Autowired
-    OrganizationMapper organizationMapper;
+    private OrganizationMapper organizationMapper;
 
     @Override
     public OrganizationDTO getDetailsById(UUID id) {
@@ -33,7 +27,20 @@ public class OrganizationServiceImp implements OrganizationService {
         if(entity.isEmpty()) {
             throw new ParamNotFound("invalid organization id");
         }
-        return this.organizationMapper.characterEntity2DTO(entity.get());
+        return this.organizationMapper.entity2DTO(entity.get());
 
-}
+    }
+
+    public OrganizationDTO update(UUID id, OrganizationDTO dto) {
+        Optional<Organization> result = organizationRepository.findById(id);
+        if (result.isPresent()) {
+            Organization entity = organizationMapper.updateDTO2Entity(result.get(), dto);
+            Organization entityUpdated = organizationRepository.save(entity);
+            OrganizationDTO dtoUpdated = organizationMapper.entity2DTO(entityUpdated);
+            return dtoUpdated;
+        } else {
+            throw new EntityNotFoundException("Organization not found");
+        }
+    }
+
 }

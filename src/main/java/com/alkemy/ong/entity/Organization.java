@@ -67,4 +67,10 @@ public class Organization {
         return Objects.equals(id, other.id);
     }
 
+    private String facebook;
+
+    private String linkedin;
+
+    private String instagram;
+
 }
