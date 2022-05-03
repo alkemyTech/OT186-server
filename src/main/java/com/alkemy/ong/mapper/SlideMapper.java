@@ -58,4 +58,21 @@ public class SlideMapper {
         return dtos;
     }
 
+    public void slideEntityRefreshValues(Slide slideEntity, SlideDTO slideDTO) {
+        slideEntity.setImageUrl(slideDTO.getImageUrl());
+        slideEntity.setText(slideDTO.getText());
+        slideEntity.setOrder(slideDTO.getOrder());
+        slideEntity.setOrganizationId(slideDTO.getOrganizationId());
+    }
+
+    public SlideDTO slideEntity2DTO(Slide slideEntity) {
+        SlideDTO dto = new SlideDTO();
+        dto.setId(slideEntity.getId());
+        dto.setImageUrl(slideEntity.getImageUrl());
+        dto.setText(slideEntity.getText());
+        dto.setOrder(slideEntity.getOrder());
+        dto.setOrganizationId(slideEntity.getOrganizationId());
+        return dto;
+    }
+
 }

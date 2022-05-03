@@ -43,4 +43,10 @@ public class SlideController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<SlideDTO> update(@PathVariable UUID id, @RequestBody SlideDTO slideDTO) {
+        SlideDTO result = this.slideService.update(id,slideDTO);
+        return ResponseEntity.ok().body(result);
+    }
+
 }
