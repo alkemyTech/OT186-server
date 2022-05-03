@@ -39,4 +39,13 @@ public class SlideServiceImpl implements SlideService {
         return result;
     }
 
+    public void delete(UUID id) {
+        Optional<Slide> slide = slideRepository.findById(id);
+        if (slide.isPresent()){
+            slideRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("Slide not found.");
+        }
+    }
+
 }
