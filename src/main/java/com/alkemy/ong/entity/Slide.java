@@ -26,9 +26,9 @@ public class Slide {
     private String imageUrl;
     @Column(name = "text", nullable = false)
     private String text;
-    @Column(name = "order_", nullable = false)
+    @Column(name = "order_slide", nullable = false)
     private Long order;
-    @Column(name ="organization_id", nullable = false)
-    private Long organizationId;
+    @Column(name ="organization_id", nullable = false, columnDefinition = "VARCHAR(255)")
+    private UUID organizationId;
 
 }

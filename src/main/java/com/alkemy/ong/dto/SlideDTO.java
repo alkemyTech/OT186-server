@@ -12,5 +12,5 @@ public class SlideDTO {
     private String imageUrl;
     private String text;
     private Long order;
-    private Long organizationId;
+    private UUID organizationId;
 }
