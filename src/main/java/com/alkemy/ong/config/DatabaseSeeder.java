@@ -1,7 +1,9 @@
 package com.alkemy.ong.config;
 
 import com.alkemy.ong.entity.Activity;
+import com.alkemy.ong.entity.Role;
 import com.alkemy.ong.repository.ActivityRepository;
+import com.alkemy.ong.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,11 @@ import java.sql.Timestamp;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final ActivityRepository activityRepository;
-
+    private final RoleRepository roleRepository;
     @Autowired
-    public DatabaseSeeder(ActivityRepository activityRepository) {
+    public DatabaseSeeder(ActivityRepository activityRepository, RoleRepository roleRepository) {
         this.activityRepository = activityRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         activityRepository.save(this.buildActivity("Beca Estimulo", "Beca Estimulo supervisada por lo tutores", "img_actividad7.jpg"));
         activityRepository.save(this.buildActivity("Taller arte y cuentos", "Se realiza semanalmente", "img_actividad8.jpg"));
         activityRepository.save(this.buildActivity("Paseos recreativos y educativos", "Pensado para promover la participacion y el sentido de pertenencia", "img_actividad9.jpg"));
+        roleRepository.save(this.buildRole("ROLE_USER", "ROL DE USUARIO"));
 
     }
 
@@ -41,5 +45,13 @@ public class DatabaseSeeder implements CommandLineRunner {
         activity.setSoft_delete(false);
         activity.setCreateAt(new Timestamp(System.currentTimeMillis()));
         return activity;
+    }
+
+    private Role buildRole(String name, String description) {
+        Role role = new Role();
+        role.setName(name);
+        role.setDescription(description);
+        role.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        return role;
     }
 }
