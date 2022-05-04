@@ -12,14 +12,13 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Getter @Setter
 @Table(name = "organization")
-@SQLDelete(sql = "UPDATE organization SET deleted = true WHERE id=?")
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE organization SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -52,9 +51,6 @@ public class Organization {
     private String aboutUsText;
 
     private Boolean softDelete = Boolean.FALSE;
-    @OneToMany
-    @JoinColumn(name = "organization_id")
-    private Set<Slide> slides;
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

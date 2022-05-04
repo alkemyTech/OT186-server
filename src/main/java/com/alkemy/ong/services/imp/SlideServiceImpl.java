@@ -11,9 +11,8 @@ import com.alkemy.ong.services.SlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SlideServiceImpl implements SlideService {
@@ -61,8 +60,21 @@ public class SlideServiceImpl implements SlideService {
         return result;
     }
 
+    @Override
+    public List<SlideDTOBasic> listSlidesByOrganizationId(UUID organization_id) {
+        Optional<List<Slide>> slides = slideRepository.findByOrganizationId(organization_id);
+        if(slides.isPresent()){
+            return this.sortBySlideOrder(slideMapper.slideDTOListBasic(slides.get()));
+        }else{
+            return new ArrayList<>();
+        }
+    }
 
-
+    private List<SlideDTOBasic> sortBySlideOrder(List<SlideDTOBasic> slides) {
+        return slides.stream()
+                .sorted(Comparator.comparing(SlideDTOBasic::getOrder))
+                .collect(Collectors.toList());
+    }
 
 
 }
