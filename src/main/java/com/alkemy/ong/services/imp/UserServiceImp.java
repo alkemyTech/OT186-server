@@ -1,16 +1,19 @@
 package com.alkemy.ong.services.imp;
 
+import com.alkemy.ong.auth.dto.AuthenticationResponse;
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.dto.UserDTO;
 import com.alkemy.ong.entity.User;
-import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.UserMapper;
+import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,17 +45,26 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private UserService userService;
 
-
-    public UserDTO save(UserDTO userDTO)
-            throws EmailAlreadyExistException {
-        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
-            throw new EmailAlreadyExistException();
+    public ResponseEntity<AuthenticationResponse> save(User user)  throws Exception {
+        User findUser = userRepository.findByEmail(user.getEmail());
+        if(findUser !=null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse("Email is Used, Change Email"));
         }
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        User entityRegister = userRepository.save(userMapper.userDTO2(userDTO));
-        UserDTO result = userMapper.userEntity2DTO(entityRegister);
-        return result;
+        String oldPassword = user.getPassword();
+        String encoded = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encoded);
+        user.setRoles(roleRepository.findByName("ROLE_USER"));
+        userRepository.save(user);
+        authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(user.getEmail(), oldPassword));
+        final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+        final String jwt = jwtUtils.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
     public UserDetails login(LoginRequestDto loginRequestDto) throws BadCredentialsException {

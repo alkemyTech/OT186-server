@@ -4,6 +4,7 @@ import com.alkemy.ong.auth.dto.AuthenticationResponse;
 import com.alkemy.ong.auth.dto.LoginRequestDto;
 import com.alkemy.ong.auth.utils.JwtUtils;
 import com.alkemy.ong.dto.UserDTO;
+import com.alkemy.ong.entity.User;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,14 +32,8 @@ public class UserAuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity post(@RequestBody UserDTO userDTO){
-        try {
-            UserDTO userRegister = userService.save(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userRegister);
-        } catch (EmailAlreadyExistException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Email Alredy Exists, the result is: " + false);
-        }
+    public ResponseEntity<AuthenticationResponse>  post(@RequestBody User user) throws Exception {
+            return userService.save(user);
     }
 
     @PostMapping("/login")
