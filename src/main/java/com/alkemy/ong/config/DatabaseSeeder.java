@@ -14,11 +14,10 @@ import java.sql.Timestamp;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final ActivityRepository activityRepository;
-    private final RoleRepository roleRepository;
+
     @Autowired
     public DatabaseSeeder(ActivityRepository activityRepository, RoleRepository roleRepository) {
         this.activityRepository = activityRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -33,7 +32,6 @@ public class DatabaseSeeder implements CommandLineRunner {
         activityRepository.save(this.buildActivity("Beca Estimulo", "Beca Estimulo supervisada por lo tutores", "img_actividad7.jpg"));
         activityRepository.save(this.buildActivity("Taller arte y cuentos", "Se realiza semanalmente", "img_actividad8.jpg"));
         activityRepository.save(this.buildActivity("Paseos recreativos y educativos", "Pensado para promover la participacion y el sentido de pertenencia", "img_actividad9.jpg"));
-        roleRepository.save(this.buildRole("ROLE_USER", "ROL DE USUARIO"));
 
     }
 
@@ -47,11 +45,4 @@ public class DatabaseSeeder implements CommandLineRunner {
         return activity;
     }
 
-    private Role buildRole(String name, String description) {
-        Role role = new Role();
-        role.setName(name);
-        role.setDescription(description);
-        role.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        return role;
-    }
 }
