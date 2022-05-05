@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -26,5 +27,11 @@ public class TestimonialController {
     public ResponseEntity<TestimonialDTO> update (@PathVariable UUID id, @RequestBody TestimonialDTO testimonialDTO){
         TestimonialDTO testimonialUpdate = service.update(id, testimonialDTO);
         return ResponseEntity.ok().body(testimonialUpdate);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable UUID id){
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

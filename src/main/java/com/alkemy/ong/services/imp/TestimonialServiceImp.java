@@ -23,8 +23,7 @@ public class TestimonialServiceImp implements TestimonialService {
 
     public TestimonialDTO save(TestimonialDTO testimonialDTO) {
         Testimonial entity = testimonialRepository.save(testimonialMapper.testimonial2DTOEntity(testimonialDTO));
-        TestimonialDTO result = testimonialMapper.testimonial2DTO(entity);
-        return result;
+        return testimonialMapper.testimonial2DTO(entity);
     }
 
     public TestimonialDTO update(UUID id, TestimonialDTO testimonialDTO) {
@@ -32,10 +31,17 @@ public class TestimonialServiceImp implements TestimonialService {
         if(result.isPresent()){
             Testimonial entity = testimonialMapper.updateTestimonial2DTO(result.get(),testimonialDTO);
             Testimonial entityUpdated = testimonialRepository.save(entity);
-            TestimonialDTO dtoUpdated = testimonialMapper.testimonial2DTO(entityUpdated);
-            return dtoUpdated;
+            return testimonialMapper.testimonial2DTO(entityUpdated);
         }else{
             throw new EntityNotFoundException("Testimonial not found");
         }
     }
+
+    public void delete(UUID id){
+        if(testimonialRepository.findById(id) == null){
+            throw new EntityNotFoundException("Testimonial not found");
+        }
+        testimonialRepository.deleteById(id);
+    }
+
 }

@@ -8,4 +8,5 @@ public interface TestimonialService {
 
     TestimonialDTO save(TestimonialDTO testimonialDTO);
     TestimonialDTO update(UUID id, TestimonialDTO testimonialDTO);
+    void delete(UUID id);
 }
