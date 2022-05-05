@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.CommentDTO;
 import com.alkemy.ong.entity.Comments;
 import com.alkemy.ong.mapper.CommentsMapper;
 import com.alkemy.ong.repository.CommentsRepository;
+import com.alkemy.ong.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CommentServiceImp {
+public class CommentServiceImp implements CommentService {
 
     @Autowired
     private CommentsRepository commentsRepository;
