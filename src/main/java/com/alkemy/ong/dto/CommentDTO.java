@@ -13,7 +13,7 @@ import java.util.UUID;
 public class CommentDTO {
 
     private UUID id;
-    @NotBlank(message = "Please provide a name")
+    @NotBlank(message = "Please provide a body")
     private String body;
     private User users;
     private News news;

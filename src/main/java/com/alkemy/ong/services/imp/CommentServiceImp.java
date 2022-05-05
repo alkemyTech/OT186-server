@@ -26,7 +26,7 @@ public class CommentServiceImp {
             Comments entityUpdated = commentsRepository.save(entity);
             return commentsMapper.comment2DTO(entityUpdated);
         }else{
-            throw new EntityNotFoundException("Testimonial not found");
+            throw new EntityNotFoundException("Comments not found");
         }
     }
 
