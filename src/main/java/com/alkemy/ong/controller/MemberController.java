@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +36,12 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok().body(memberDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO memberDTO) {
+        MemberDTO savedMember = memberService.create(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 }
 

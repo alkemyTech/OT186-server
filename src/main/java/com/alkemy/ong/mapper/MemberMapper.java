@@ -42,4 +42,15 @@ public class MemberMapper {
         member.setInstagramUrl(updated.getInstagramUrl());
         return member;
     }
+
+    public Member memberDTO2MemberEntity(MemberDTO dto) {
+        Member entity = new Member();
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setImage(dto.getImage());
+        entity.setFacebookUrl(dto.getFacebookUrl());
+        entity.setInstagramUrl(dto.getInstagramUrl());
+        entity.setLinkedinUrl(dto.getLinkedinUrl());
+        return entity;
+    }
 }
