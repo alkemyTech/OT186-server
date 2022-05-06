@@ -44,6 +44,7 @@ public class SlideController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SlideDTO> update(@PathVariable UUID id, @RequestBody SlideDTO slideDTO) {
         SlideDTO result = this.slideService.update(id,slideDTO);
         return ResponseEntity.ok().body(result);

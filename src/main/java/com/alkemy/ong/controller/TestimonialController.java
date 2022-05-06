@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.TestimonialDTO;
 import com.alkemy.ong.services.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,18 +19,21 @@ public class TestimonialController {
     private TestimonialService service;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TestimonialDTO> save (@Valid  @RequestBody TestimonialDTO testimonialDTO){
         TestimonialDTO testimonialSave = service.save(testimonialDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(testimonialSave);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TestimonialDTO> update (@PathVariable UUID id, @RequestBody TestimonialDTO testimonialDTO){
         TestimonialDTO testimonialUpdate = service.update(id, testimonialDTO);
         return ResponseEntity.ok().body(testimonialUpdate);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete (@PathVariable UUID id){
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

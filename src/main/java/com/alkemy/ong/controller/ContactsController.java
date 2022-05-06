@@ -19,6 +19,7 @@ public class ContactsController {
     private ContactsService contactsService;
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ContactsDTO> save(@Valid @RequestBody ContactsDTO contacts) {
         ContactsDTO contactsCreated = contactsService.save(contacts);
         return ResponseEntity.status(HttpStatus.CREATED).body(contactsCreated);
