@@ -20,14 +20,14 @@ public class ActivityController {
     public ActivityService activityService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ActivityDTO> save (@Valid @RequestBody ActivityDTO dto){
         ActivityDTO activitySave = activityService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(activitySave);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ActivityDTO> update (@PathVariable UUID id, @RequestBody ActivityDTO dto){
         ActivityDTO Update = activityService.update(id, dto);
         return ResponseEntity.ok().body(Update);

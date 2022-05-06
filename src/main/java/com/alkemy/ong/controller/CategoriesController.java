@@ -34,21 +34,21 @@ public class CategoriesController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> save(@Valid @RequestBody CategoriesDTO dto) {
         CategoriesDTO categorySaved = categoriesService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> update(@PathVariable UUID id, @Valid @RequestBody CategoriesDTO dto) {
         CategoriesDTO CategoriesUpdated = categoriesService.update(id, dto);
         return ResponseEntity.ok().body(CategoriesUpdated);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity delete(@PathVariable UUID id) {
         try {
             categoriesService.delete(id);

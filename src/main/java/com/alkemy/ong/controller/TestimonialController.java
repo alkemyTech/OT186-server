@@ -19,21 +19,21 @@ public class TestimonialController {
     private TestimonialService service;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TestimonialDTO> save (@Valid  @RequestBody TestimonialDTO testimonialDTO){
         TestimonialDTO testimonialSave = service.save(testimonialDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(testimonialSave);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TestimonialDTO> update (@PathVariable UUID id, @RequestBody TestimonialDTO testimonialDTO){
         TestimonialDTO testimonialUpdate = service.update(id, testimonialDTO);
         return ResponseEntity.ok().body(testimonialUpdate);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete (@PathVariable UUID id){
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
