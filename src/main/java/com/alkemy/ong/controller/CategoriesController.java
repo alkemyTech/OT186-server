@@ -32,7 +32,6 @@ public class CategoriesController {
 
     @GetMapping()
     public ResponseEntity<PageFormatter<CategoriesBasicDTO>> getAll(@PageableDefault(page=0, size = 10)Pageable pageable) {
-        //List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
         PageFormatter<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.findPageable(pageable);
         return ResponseEntity.ok().body(categoriesBasicDTO);
     }
