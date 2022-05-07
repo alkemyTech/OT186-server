@@ -19,7 +19,6 @@ public class CommentsController {
     private CommentService service;
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CommentDTO> update (@PathVariable UUID id, @RequestBody CommentDTO commentDTO) {
         CommentDTO commentUpdate;
         try {
@@ -31,7 +30,6 @@ public class CommentsController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete (@PathVariable UUID id){
         try {
             service.delete(id);

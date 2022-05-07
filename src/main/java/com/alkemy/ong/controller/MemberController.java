@@ -27,7 +27,6 @@ public class MemberController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity update(@PathVariable UUID id, @RequestBody MemberDTO updated){
         MemberDTO memberDTO;
         try {

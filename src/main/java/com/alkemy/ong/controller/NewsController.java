@@ -25,6 +25,7 @@ public class NewsController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<NewsDTO> getByID (@PathVariable UUID id){
         NewsDTO dto = newsService.getDetailsById(id);
         return ResponseEntity.ok().body(dto);

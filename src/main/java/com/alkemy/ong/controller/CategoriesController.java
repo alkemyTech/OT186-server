@@ -22,12 +22,14 @@ public class CategoriesController {
     private CategoriesService categoriesService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> getById(@PathVariable UUID id) {
         CategoriesDTO dto = categoriesService.getDetailsById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<CategoriesBasicDTO>> getAll() {
         List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
         return ResponseEntity.ok().body(categoriesBasicDTO);

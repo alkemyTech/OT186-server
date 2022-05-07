@@ -21,12 +21,14 @@ public class SlideController {
     private SlideService slideService;
 
     @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<SlideDTOBasic>> getAllSlide(){
         List<SlideDTOBasic> slideDTOBasic = slideService.getAllSlideBasic();
         return ResponseEntity.ok().body(slideDTOBasic);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SlideDTO> getById(@PathVariable UUID id){
         SlideDTO dto = slideService.getDetailsById(id);
         return ResponseEntity.ok().body(dto);
