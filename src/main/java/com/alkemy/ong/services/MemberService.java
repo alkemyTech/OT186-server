@@ -9,4 +9,5 @@ public interface MemberService {
 
     List<MemberDTO> getAll();
     MemberDTO update(UUID id, MemberDTO updated);
+    void delete(UUID id);
 }

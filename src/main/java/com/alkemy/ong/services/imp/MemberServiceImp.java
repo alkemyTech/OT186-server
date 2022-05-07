@@ -38,4 +38,8 @@ public class MemberServiceImp implements MemberService {
         memberRepository.save(alreadyUpdated);
         return memberMapper.member2DTO(alreadyUpdated);
     }
+
+    public void delete(UUID id) {
+        this.memberRepository.deleteById(id);
+    }
 }

@@ -36,5 +36,11 @@ public class MemberController {
         }
         return ResponseEntity.ok().body(memberDTO);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        this.memberService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
 
