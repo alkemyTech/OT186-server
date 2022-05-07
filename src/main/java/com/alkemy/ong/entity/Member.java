@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +48,6 @@ public class Member {
 
     @Column(nullable = false)
     //@Temporal(TemporalType.DATE)
-    private Timestamp timestamps;
+    private Timestamp timestamps = Timestamp.from(Instant.now());
 
 }
