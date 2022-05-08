@@ -6,7 +6,9 @@ import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -41,5 +43,14 @@ public class MemberServiceImp implements MemberService {
 
     public void delete(UUID id) {
         this.memberRepository.deleteById(id);
+
+    public MemberDTO create(MemberDTO memberDTO) {
+        try {
+            Member member = memberMapper.memberDTO2MemberEntity(memberDTO);
+            Member savedMemberEntity = memberRepository.save(member);
+            return memberMapper.member2DTO(savedMemberEntity);
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<MemberDTO>> getAll(){
         List<MemberDTO> members = memberService.getAll();
         return ResponseEntity.ok().body(members);
@@ -41,6 +42,11 @@ public class MemberController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.memberService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+      @PostMapping
+    public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO memberDTO) {
+        MemberDTO savedMember = memberService.create(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 }
 
