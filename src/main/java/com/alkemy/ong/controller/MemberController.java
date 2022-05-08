@@ -21,7 +21,7 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<MemberDTO>> getAll(){
         List<MemberDTO> members = memberService.getAll();
         return ResponseEntity.ok().body(members);

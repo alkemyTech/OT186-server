@@ -6,6 +6,7 @@ import com.alkemy.ong.services.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,30 +22,35 @@ public class CategoriesController {
     private CategoriesService categoriesService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> getById(@PathVariable UUID id) {
         CategoriesDTO dto = categoriesService.getDetailsById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<CategoriesBasicDTO>> getAll() {
         List<CategoriesBasicDTO> categoriesBasicDTO = categoriesService.getBasicDTOList();
         return ResponseEntity.ok().body(categoriesBasicDTO);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> save(@Valid @RequestBody CategoriesDTO dto) {
         CategoriesDTO categorySaved = categoriesService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CategoriesDTO> update(@PathVariable UUID id, @Valid @RequestBody CategoriesDTO dto) {
         CategoriesDTO CategoriesUpdated = categoriesService.update(id, dto);
         return ResponseEntity.ok().body(CategoriesUpdated);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity delete(@PathVariable UUID id) {
         try {
             categoriesService.delete(id);
