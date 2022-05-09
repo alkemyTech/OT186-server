@@ -23,4 +23,12 @@ public class CommentsMapper {
         entity.setNews(dto.getNews());
         return entity;
     }
+
+    public Comments DTO2Entity(CommentDTO dto) {
+        Comments entity = new Comments();
+        entity.setBody(dto.getBody());
+        entity.setNews(dto.getNews());
+        entity.setUser(dto.getUsers());
+        return entity;
+    }
 }

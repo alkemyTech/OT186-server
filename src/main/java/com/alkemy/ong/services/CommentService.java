@@ -8,5 +8,6 @@ public interface CommentService {
 
     CommentDTO update(UUID id, CommentDTO commentDTO);
     void delete(UUID id);
+    CommentDTO save(CommentDTO dto);
 
 }

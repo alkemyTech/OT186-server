@@ -12,8 +12,8 @@ public class NewsMapper {
 
     public NewsDTO news2DTO(News entity){
         NewsDTO dto = new NewsDTO();
-        dto.setId(entity.getId());
         dto.setName(entity.getName());
+        dto.setContent(entity.getContent());
         dto.setImage(entity.getImage());
         dto.setCategories(entity.getCategories());
         return dto;
@@ -21,8 +21,8 @@ public class NewsMapper {
 
     public News newsDTO2Entity(NewsDTO dto){
         News news = new News();
-        news.setId(dto.getId());
         news.setName(dto.getName());
+        news.setContent(dto.getContent());
         news.setImage(dto.getImage());
         news.setCategories(dto.getCategories());
         return news;
@@ -35,6 +35,7 @@ public class NewsMapper {
             basicDTO = new NewsDTO();
             basicDTO.setId(entity.getId());
             basicDTO.setName(entity.getName());
+            basicDTO.setContent(entity.getContent());
             basicDTO.setImage(entity.getImage());
             basicDTO.setCategories(entity.getCategories());
             dtos.add(basicDTO);
@@ -45,6 +46,7 @@ public class NewsMapper {
     public News updateNewsDTO2Entity(News entity, NewsDTO dto){
         entity.setId(dto.getId());
         entity.setName(dto.getName());
+        entity.setContent(dto.getContent());
         entity.setImage(dto.getImage());
         entity.setCategories(dto.getCategories());
         return entity;
