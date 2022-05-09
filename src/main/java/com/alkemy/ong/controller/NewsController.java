@@ -1,15 +1,17 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.NewsDTO;
+import com.alkemy.ong.dto.PageFormatter;
 import com.alkemy.ong.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,9 +22,9 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping()
-    public ResponseEntity<List<NewsDTO>> getAll(){
-        List<NewsDTO> newsDTOList = newsService.getAllNews();
-        return ResponseEntity.ok().body(newsDTOList);
+    public ResponseEntity<PageFormatter<NewsDTO>> getAll(@PageableDefault(page=0, size = 10)Pageable pageable){
+        PageFormatter<NewsDTO> newsDTO = newsService.findPageable(pageable);
+        return ResponseEntity.ok().body(newsDTO);
     }
 
     @GetMapping("/{id}")
