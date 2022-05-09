@@ -58,5 +58,10 @@ public class CategoriesMapper {
         categories.setImage(dto.getImage());
         return categories;
     }
-
+    public CategoriesBasicDTO EntityToCategoriesBasicDTO(Categories categories) {
+        CategoriesBasicDTO categoriesBasicDTO = new CategoriesBasicDTO();
+        categoriesBasicDTO.setName(categories.getName());
+        return categoriesBasicDTO;
+    }
+    //public CategoriesPageDTO<CategoriesBasicDTO> PageMapper()
 }
