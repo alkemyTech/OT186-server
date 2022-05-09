@@ -1,8 +1,11 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.MemberDTO;
+import com.alkemy.ong.dto.PageFormatter;
 import com.alkemy.ong.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +28,13 @@ public class MemberController {
     public ResponseEntity<List<MemberDTO>> getAll(){
         List<MemberDTO> members = memberService.getAll();
         return ResponseEntity.ok().body(members);
+    }
+
+    @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<PageFormatter<MemberDTO>>getAll(@PageableDefault(page=0, size= 10)Pageable pageable){
+        PageFormatter<MemberDTO> memberDTO = memberService.findPageable(pageable);
+        return ResponseEntity.ok().body(memberDTO);
     }
 
     @PutMapping("{id}")
