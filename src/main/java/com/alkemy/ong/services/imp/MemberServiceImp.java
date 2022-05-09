@@ -27,13 +27,6 @@ public class MemberServiceImp implements MemberService {
     @Autowired
     private MemberMapper memberMapper;
 
-
-    @Override
-    public List<MemberDTO> getAll() {
-        List<Member> members = memberRepository.findAll();
-        return memberMapper.entity2DTOList(members);
-    }
-
     @Override
     public MemberDTO update(UUID id, MemberDTO updated) {
         Optional<Member> member = memberRepository.findById(id);

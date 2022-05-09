@@ -23,13 +23,6 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<MemberDTO>> getAll(){
-        List<MemberDTO> members = memberService.getAll();
-        return ResponseEntity.ok().body(members);
-    }
-
     @GetMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<PageFormatter<MemberDTO>>getAll(@PageableDefault(page=0, size= 10)Pageable pageable){
