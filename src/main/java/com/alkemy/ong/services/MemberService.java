@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MemberService {
-
-    List<MemberDTO> getAll();
+    
     MemberDTO update(UUID id, MemberDTO updated);
     void delete(UUID id);
     MemberDTO create(MemberDTO memberDTO);
