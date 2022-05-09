@@ -24,7 +24,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsMapper newsMapper;
-    private final String pattern="localhost:8080/categories?page=";
+    private final String pattern="localhost:8080/news?page=";
     public NewsDTO getDetailsById(UUID id){
         Optional<News> news = newsRepository.findById(id);
         if(news.isPresent()){
@@ -70,7 +70,7 @@ public class NewsServiceImpl implements NewsService {
     public PageFormatter<NewsDTO> findPageable(Pageable pageable) {
         Page<News> news = newsRepository.findAll(pageable);
         if(news.isEmpty()){
-            throw new EntityNotFoundException("Categories not found");
+            throw new EntityNotFoundException("News not found");
         }
         else {
             Page<NewsDTO> newsDTOS = news.map(entity -> newsMapper.news2DTO(entity));
