@@ -41,6 +41,9 @@ public class MemberServiceImp implements MemberService {
         return memberMapper.member2DTO(alreadyUpdated);
     }
 
+    public void delete(UUID id) {
+        this.memberRepository.deleteById(id);
+
     public MemberDTO create(MemberDTO memberDTO) {
         try {
             Member member = memberMapper.memberDTO2MemberEntity(memberDTO);
