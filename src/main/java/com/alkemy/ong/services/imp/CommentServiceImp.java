@@ -32,9 +32,17 @@ public class CommentServiceImp implements CommentService {
     }
 
     public void delete(UUID id){
-        if(commentsRepository.findById(id) == null){
+        Optional<Comments> result = commentsRepository.findById(id);
+        if(!result.isPresent()){
             throw new EntityNotFoundException("Comments not found");
         }
         commentsRepository.deleteById(id);
     }
+
+    public CommentDTO save(CommentDTO dto) {
+        Comments entitySaved = commentsRepository.save(commentsMapper.DTO2Entity(dto));
+        CommentDTO result = commentsMapper.comment2DTO(entitySaved);
+        return result;
+    }
+
 }
