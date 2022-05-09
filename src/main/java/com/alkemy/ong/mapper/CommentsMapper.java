@@ -1,8 +1,12 @@
 package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentsBasicDTO;
 import com.alkemy.ong.entity.Comments;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CommentsMapper {
@@ -30,5 +34,15 @@ public class CommentsMapper {
         entity.setNews(dto.getNews());
         entity.setUser(dto.getUsers());
         return entity;
+    }
+
+    public List<CommentsBasicDTO> entityList2DTOList(List<Comments> entities){
+        List<CommentsBasicDTO> dtos = new ArrayList<>();
+        for (Comments entity : entities) {
+            CommentsBasicDTO dto = new CommentsBasicDTO();
+            dto.setBody(entity.getBody());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }

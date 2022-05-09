@@ -1,6 +1,7 @@
 package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentsBasicDTO;
 import com.alkemy.ong.entity.Comments;
 import com.alkemy.ong.mapper.CommentsMapper;
 import com.alkemy.ong.repository.CommentsRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,6 +44,12 @@ public class CommentServiceImp implements CommentService {
     public CommentDTO save(CommentDTO dto) {
         Comments entitySaved = commentsRepository.save(commentsMapper.DTO2Entity(dto));
         CommentDTO result = commentsMapper.comment2DTO(entitySaved);
+        return result;
+    }
+
+    public List<CommentsBasicDTO> getAll() {
+        List<Comments> entities = commentsRepository.findAllByOrderByTimestampAsc();
+        List<CommentsBasicDTO> result = commentsMapper.entityList2DTOList(entities);
         return result;
     }
 
