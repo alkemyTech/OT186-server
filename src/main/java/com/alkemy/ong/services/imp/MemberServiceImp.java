@@ -47,6 +47,7 @@ public class MemberServiceImp implements MemberService {
 
     public void delete(UUID id) {
         this.memberRepository.deleteById(id);
+    }
 
     public MemberDTO create(MemberDTO memberDTO) {
         try {
