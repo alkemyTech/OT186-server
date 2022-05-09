@@ -42,8 +42,8 @@ public class MemberController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.memberService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-      @PostMapping
+    }
+    @PostMapping
     public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO memberDTO) {
         MemberDTO savedMember = memberService.create(memberDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
