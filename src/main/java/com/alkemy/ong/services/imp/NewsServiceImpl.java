@@ -90,5 +90,8 @@ public class NewsServiceImpl implements NewsService {
             return pageFormatter;
         }
     }
-
+    @Override
+    public Boolean existById(UUID id) {
+        return newsRepository.existsById(id);
+    }
 }
