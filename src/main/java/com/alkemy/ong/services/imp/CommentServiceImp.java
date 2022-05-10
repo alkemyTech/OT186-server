@@ -1,8 +1,10 @@
 package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentForNewsDTO;
 import com.alkemy.ong.dto.CommentsBasicDTO;
 import com.alkemy.ong.entity.Comments;
+import com.alkemy.ong.entity.News;
 import com.alkemy.ong.mapper.CommentsMapper;
 import com.alkemy.ong.repository.CommentsRepository;
 import com.alkemy.ong.services.CommentService;
@@ -51,6 +53,17 @@ public class CommentServiceImp implements CommentService {
         List<Comments> entities = commentsRepository.findAllByOrderByTimestampAsc();
         List<CommentsBasicDTO> result = commentsMapper.entityList2DTOList(entities);
         return result;
+    }
+
+    @Override
+    public List<CommentForNewsDTO> findAllByNewsId(UUID id) {
+        News news = new News();
+        news.setId(id);
+        Optional<List<Comments>> commentsList = commentsRepository.findByNews(news);
+        if(commentsList.isEmpty()){
+            throw new EntityNotFoundException("News not found");
+        }
+        return commentsMapper.listComment2listCommentForNewsDTO(commentsList.get());
     }
 
 }

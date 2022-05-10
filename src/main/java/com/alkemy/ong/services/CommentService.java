@@ -1,6 +1,7 @@
 package com.alkemy.ong.services;
 
 import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentForNewsDTO;
 import com.alkemy.ong.dto.CommentsBasicDTO;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface CommentService {
     void delete(UUID id);
     CommentDTO save(CommentDTO dto);
     List<CommentsBasicDTO> getAll();
+    List<CommentForNewsDTO> findAllByNewsId(UUID id);
 
 }

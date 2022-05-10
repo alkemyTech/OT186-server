@@ -1,7 +1,9 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.CommentForNewsDTO;
 import com.alkemy.ong.dto.NewsDTO;
 import com.alkemy.ong.dto.PageFormatter;
+import com.alkemy.ong.services.CommentService;
 import com.alkemy.ong.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,7 +23,8 @@ public class NewsController {
 
     @Autowired
     private NewsService newsService;
-
+    @Autowired
+    private CommentService commentService;
     @GetMapping()
     public ResponseEntity<PageFormatter<NewsDTO>> getAll(@PageableDefault(page=0, size = 10)Pageable pageable){
         PageFormatter<NewsDTO> newsDTO = newsService.findPageable(pageable);
@@ -54,5 +58,11 @@ public class NewsController {
         newsService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentForNewsDTO>> getAllComments(@PathVariable UUID id) {
+        if(!newsService.existById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<CommentForNewsDTO>>(commentService.findAllByNewsId(id), HttpStatus.ACCEPTED);
+    }
 }

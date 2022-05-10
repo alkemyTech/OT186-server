@@ -16,5 +16,6 @@ public interface NewsService {
     void delete(UUID id);
 
     PageFormatter<NewsDTO> findPageable(Pageable pageable);
+    Boolean existById(UUID id);
 
 }
