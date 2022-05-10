@@ -1,88 +1,47 @@
 package com.alkemy.ong.services;
 
-
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import com.sendgrid.helpers.mail.objects.Personalization;
+import sendinblue.ApiClient;
+import sendinblue.ApiException;
+import sendinblue.Configuration;
+import sendinblue.auth.ApiKeyAuth;
+import sibApi.TransactionalEmailsApi;
+import sibModel.CreateSmtpEmail;
+import sibModel.SendSmtpEmail;
+import sibModel.SendSmtpEmailTo;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
-@PropertySource("classpath:application.properties")
 public class EmailService {
 
-    @Value("${sendgrid.from.name}")
-    private String fromEmail;
+    private final String FROM_EMAIL = System.getenv("SENDER_EMAIL");
+    private final String API_KEY = System.getenv("SENDIBLUE_API_KEY");
+    private final String WELCOME_TEMPLATE_ID = "1";
 
-    @Value("${app.sendgrid.key}")
-    private String apiKey;
 
-    @Value("${app.sendgrid.templateId}")
-    private String templateId;
+    public void sendWelcomeEmail(String email) throws IOException {
 
-    public Response sendEmail(String email) throws IOException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
+        apiKey.setApiKey(API_KEY);
+        TransactionalEmailsApi api = new TransactionalEmailsApi();
 
-        Email from = new Email(fromEmail);
-        String subject = "Envío de mail éxitoso";
-        Email to = new Email(email);
+        SendSmtpEmailTo to = new SendSmtpEmailTo();
+        to.setEmail(email);
+        List<SendSmtpEmailTo> toList = List.of(to);
 
-        Content content = new Content(
-                "text/plain",
-                "Registro exitoso!");
+        SendSmtpEmail sendSmtpEmail = new SendSmtpEmail();
+        sendSmtpEmail.setTemplateId(1L);
+        sendSmtpEmail.setTo(toList);
 
-        Mail mail = new Mail(from, subject, to, content);
-
-        SendGrid sg = new SendGrid(apiKey);
-        Request request = new Request();
-        Response response = new Response();
-
+        CreateSmtpEmail response = null;
         try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            response = sg.api(request);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            response = api.sendTransacEmail(sendSmtpEmail);
+        }catch (ApiException e){
+            System.out.println(response.toString());
         }
-        return response;
-    }
-
-    public Response sendWelcomeEmail(String email) throws IOException {
-
-        Email from = new Email(fromEmail);
-        String subject = "Welcome to Somos Mas";
-
-        Email to = new Email(email);
-        Mail mail = new Mail();
-        mail.setFrom(from);
-
-        Personalization personalization = new Personalization();
-        personalization.addTo(to);
-
-        mail.addPersonalization(personalization);
-        mail.setTemplateId(templateId);
-
-        SendGrid sg = new SendGrid(apiKey);
-        Request request = new Request();
-        Response response = new Response();
-
-        try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            response = sg.api(request);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return response;
     }
 
 }
