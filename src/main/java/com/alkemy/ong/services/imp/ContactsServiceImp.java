@@ -5,6 +5,7 @@ import com.alkemy.ong.entity.Contacts;
 import com.alkemy.ong.mapper.ContactsMapper;
 import com.alkemy.ong.repository.ContactsRepository;
 import com.alkemy.ong.services.ContactsService;
+import com.alkemy.ong.services.EmailService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,15 @@ public class ContactsServiceImp implements ContactsService {
     private ContactsMapper contactsMapper;
     @Autowired
     private ContactsRepository contactsRepository;
+    @Autowired
+    private EmailService emailService;
 
 
     public ContactsDTO save(ContactsDTO dto) {
         Contacts entity = contactsMapper.contactsDTO2Entity(dto);
         Contacts entitySaved = this.contactsRepository.save(entity);
         ContactsDTO result = this.contactsMapper.contactsEntity2DTO(entitySaved);
+        emailService.sendEmailContact(result.getEmail());
         return result;
     }
 

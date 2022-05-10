@@ -8,6 +8,7 @@ import sendinblue.auth.ApiKeyAuth;
 import sibApi.TransactionalEmailsApi;
 import sibModel.CreateSmtpEmail;
 import sibModel.SendSmtpEmail;
+import sibModel.SendSmtpEmailSender;
 import sibModel.SendSmtpEmailTo;
 
 import java.io.IOException;
@@ -44,4 +45,33 @@ public class EmailService {
         }
     }
 
+    public void sendEmailContact(String toEmail) {
+
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure API key authorization: api-key
+        ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
+        apiKey.setApiKey(API_KEY);
+        TransactionalEmailsApi api = new TransactionalEmailsApi();
+
+        SendSmtpEmailSender sender = new SendSmtpEmailSender();
+        sender.setEmail(FROM_EMAIL);
+        sender.setName("Somos Más ONG");
+
+        SendSmtpEmailTo to = new SendSmtpEmailTo();
+        to.setEmail(toEmail);
+        List<SendSmtpEmailTo> toList = List.of(to);
+
+        SendSmtpEmail sendSmtpEmail = new SendSmtpEmail();
+        sendSmtpEmail.setSender(sender);
+        sendSmtpEmail.setTo(toList);
+        sendSmtpEmail.setSubject("Mensaje de contacto recibido!");
+        sendSmtpEmail.setHtmlContent("<html><body><p>Recibimos correctamente tu mensaje. ¡A la brevedad nos estaremos comunicando!</p></body></html>");
+
+        CreateSmtpEmail response = new CreateSmtpEmail();
+        try {
+            response = api.sendTransacEmail(sendSmtpEmail);
+        } catch (ApiException e) {
+            System.out.println(response.toString());
+        }
+    }
 }
