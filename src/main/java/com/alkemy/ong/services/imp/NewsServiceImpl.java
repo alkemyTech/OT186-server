@@ -1,11 +1,14 @@
 package com.alkemy.ong.services.imp;
 
 import com.alkemy.ong.dto.NewsDTO;
+import com.alkemy.ong.dto.PageFormatter;
 import com.alkemy.ong.entity.News;
 import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,7 +24,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsMapper newsMapper;
-
+    private final String pattern="localhost:8080/news?page=";
     public NewsDTO getDetailsById(UUID id){
         Optional<News> news = newsRepository.findById(id);
         if(news.isPresent()){
@@ -61,6 +64,31 @@ public class NewsServiceImpl implements NewsService {
             throw new EntityNotFoundException("News not found");
         }
         newsRepository.deleteById(id);
+    }
+
+    @Override
+    public PageFormatter<NewsDTO> findPageable(Pageable pageable) {
+        Page<News> news = newsRepository.findAll(pageable);
+        if(news.isEmpty()){
+            throw new EntityNotFoundException("News not found");
+        }
+        else {
+            Page<NewsDTO> newsDTOS = news.map(entity -> newsMapper.news2DTO(entity));
+            PageFormatter<NewsDTO> pageFormatter = new PageFormatter<>();
+            pageFormatter.setPageContent(newsDTOS.getContent());
+            if (news.getNumber() > 0) {
+                pageFormatter.setPreviousPageUrl(this.pattern + (news.getNumber() - 1));
+            } else {
+                pageFormatter.setPreviousPageUrl("void");
+            }
+            if (news.getNumber() < news.getTotalPages() - 1) {
+                pageFormatter.setNextPageUrl(this.pattern + (news.getNumber() + 1));
+            } else {
+                pageFormatter.setNextPageUrl("void");
+            }
+
+            return pageFormatter;
+        }
     }
 
 }
