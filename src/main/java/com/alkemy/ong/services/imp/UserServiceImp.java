@@ -9,6 +9,7 @@ import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.services.EmailService;
 import com.alkemy.ong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -49,6 +50,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private RoleRepository roleRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailService emailService;
 
     public ResponseEntity<AuthenticationResponse> save(User user)  throws Exception {
         User findUser = userRepository.findByEmail(user.getEmail());
@@ -64,6 +67,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
         new UsernamePasswordAuthenticationToken(user.getEmail(), oldPassword));
         final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
         final String jwt = jwtUtils.generateToken(userDetails);
+        emailService.sendWelcomeEmail(user.getEmail());
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
