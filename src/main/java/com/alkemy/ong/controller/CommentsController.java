@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentsBasicDTO;
 import com.alkemy.ong.entity.Comments;
 import com.alkemy.ong.repository.CommentsRepository;
 import com.alkemy.ong.services.CommentService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -65,4 +67,11 @@ public class CommentsController {
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
+
+    @GetMapping
+    public ResponseEntity<List<CommentsBasicDTO>> getAll(){
+        List<CommentsBasicDTO> dtos = service.getAll();
+        return ResponseEntity.ok().body(dtos);
+    }
+
 }
