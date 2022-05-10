@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 @Getter
 @Setter
-public class CommentBasicDTO {
+public class CommentForNewsDTO {
     private UUID id;
     @NotBlank(message = "Please provide a body")
     private String body;

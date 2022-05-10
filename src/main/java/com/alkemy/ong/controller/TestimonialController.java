@@ -1,8 +1,11 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.PageFormatter;
 import com.alkemy.ong.dto.TestimonialDTO;
 import com.alkemy.ong.services.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,13 @@ public class TestimonialController {
 
     @Autowired
     private TestimonialService service;
+
+    @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<PageFormatter<TestimonialDTO>> getAll(@PageableDefault(page= 0, size=10)Pageable pageable){
+        PageFormatter<TestimonialDTO> testimonialDTO = service.findPageable(pageable);
+        return ResponseEntity.ok().body(testimonialDTO);
+    }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")

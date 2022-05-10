@@ -1,7 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.dto.CommentBasicDTO;
-import com.alkemy.ong.dto.CommentDTO;
+import com.alkemy.ong.dto.CommentForNewsDTO;
 import com.alkemy.ong.dto.NewsDTO;
 import com.alkemy.ong.dto.PageFormatter;
 import com.alkemy.ong.services.CommentService;
@@ -60,10 +59,10 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @GetMapping("/{id}/comments")
-    public ResponseEntity<List<CommentBasicDTO>> getAllComments(@PathVariable UUID id) {
+    public ResponseEntity<List<CommentForNewsDTO>> getAllComments(@PathVariable UUID id) {
         if(!newsService.existById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<CommentBasicDTO>>(commentService.findAllByNewsId(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<CommentForNewsDTO>>(commentService.findAllByNewsId(id), HttpStatus.ACCEPTED);
     }
 }

@@ -11,5 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface CommentsRepository extends JpaRepository<Comments, UUID> {
+
+    List<Comments> findAllByOrderByTimestampAsc();
     Optional<List<Comments>> findByNews(News news);
 }
