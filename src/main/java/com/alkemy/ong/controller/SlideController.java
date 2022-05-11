@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +50,13 @@ public class SlideController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SlideDTO> update(@PathVariable UUID id, @RequestBody SlideDTO slideDTO) {
         SlideDTO result = this.slideService.update(id,slideDTO);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<SlideDTO> create(@RequestBody SlideDTO slideDto) throws IOException {
+        SlideDTO result = slideService.create(slideDto);
         return ResponseEntity.ok().body(result);
     }
 
