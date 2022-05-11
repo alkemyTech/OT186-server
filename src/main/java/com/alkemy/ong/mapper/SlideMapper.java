@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SlideMapper {
@@ -75,4 +76,9 @@ public class SlideMapper {
         return dto;
     }
 
+    public List<SlideDTO> listSlide2DTO(List<Slide> listSlide) {
+        return listSlide.stream()
+                .map(this::slide2DTO)
+                .collect(Collectors.toList());
+    }
 }

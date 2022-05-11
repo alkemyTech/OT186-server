@@ -1,7 +1,9 @@
 package com.alkemy.ong.services.imp;
 
+import com.alkemy.ong.auth.utils.Base64DecodedMultiPartFile;
 import com.alkemy.ong.dto.SlideDTO;
 import com.alkemy.ong.dto.SlideDTOBasic;
+import org.apache.commons.codec.binary.Base64;
 import com.alkemy.ong.entity.Slide;
 import com.alkemy.ong.exception.EntityNotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
@@ -11,6 +13,7 @@ import com.alkemy.ong.services.SlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,8 @@ public class SlideServiceImpl implements SlideService {
 
     @Autowired
     private SlideMapper slideMapper;
+    @Autowired
+    private AmazonServiceImpl amazonService;
 
     public SlideDTO getDetailsById(UUID id){
         Optional<Slide> slide = slideRepository.findById(id);
@@ -74,6 +79,25 @@ public class SlideServiceImpl implements SlideService {
         return slides.stream()
                 .sorted(Comparator.comparing(SlideDTOBasic::getOrder))
                 .collect(Collectors.toList());
+    }
+
+    public SlideDTO create(SlideDTO slideDto) throws IOException {
+
+        Slide slide = slideMapper.slideDTO2Entity(slideDto);
+        Base64DecodedMultiPartFile image = new Base64DecodedMultiPartFile(Base64.decodeBase64(slideDto.getImageUrl()));
+        String urlImage = amazonService.uploadFile(image);
+        slide.setImageUrl(urlImage);
+        if (slideDto.getOrder() == null) {
+            slide.setOrder((long) (1 + findAllSlide().size()));
+        } else {
+            slide.setOrder(slideDto.getOrder());
+        }
+        Slide slideCreated = slideRepository.save(slide);
+        return slideMapper.slideEntity2DTO(slideCreated);
+    }
+
+    public List<SlideDTO> findAllSlide() {
+        return slideMapper.listSlide2DTO(slideRepository.findAll());
     }
 
 
