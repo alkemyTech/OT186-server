@@ -20,8 +20,12 @@ import java.util.UUID;
 @RequestMapping("/members")
 public class MemberController {
 
-    @Autowired
     private MemberService memberService;
+
+    @Autowired
+    public MemberController(MemberService memberService){
+        this.memberService = memberService;
+    }
 
     @GetMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
