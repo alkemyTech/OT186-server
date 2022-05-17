@@ -96,22 +96,7 @@ class ActivityControllerTest extends AuthForTest {
                 testRestTemplate.exchange(generateUriWithPort("/activities/" + uuid.toString()), HttpMethod.PUT, httpEntity, ActivityDTO.class);
         Assertions.assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
     }
-  /*  @Test
-    void updateAdminBadRequestWhenNoNameActivity(){
-        when(activityRepository.findById(uuid)).thenReturn(fakeActivity());
-        ActivityDTO activityDTO = new ActivityDTO();
-        activityDTO.setName(null);
-        HttpEntity<ActivityDTO> httpEntity = new HttpEntity<>(activityDTO, httpHeaders);
-        putTokenInHeader("ROLE_ADMIN");
-        try {
-            ResponseEntity<ActivityDTO> responseEntity =
-                    testRestTemplate.exchange(generateUriWithPort("/activities/" + uuid.toString()), HttpMethod.PUT, httpEntity, ActivityDTO.class);
-            Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        } catch (NullPointerException e) {
 
-        }
-
-    }*/
     private Optional<Activity> fakeActivity() {
         Activity activity = new Activity();
         activity.setId(uuid);
