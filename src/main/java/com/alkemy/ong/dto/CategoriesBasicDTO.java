@@ -10,7 +10,6 @@ import java.util.UUID;
 @Setter
 public class CategoriesBasicDTO {
 
-    @ApiModelProperty(position = 1, required = true, value = "Campañas")
     private String name;
 
 }
