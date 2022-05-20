@@ -91,6 +91,15 @@ class ContactsControllerTest extends AuthForTest {
         Assertions.assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
     }
 
+    @Test
+    void getAllWithoutLogin() {
+        when(contactsRepository.findAll()).thenReturn(fakeContactsList);
+        HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<ContactsDTO>> responseEntity =
+                testRestTemplate.exchange(generateUriWithPort("/contacts"), HttpMethod.GET, httpEntity, (Class<List<ContactsDTO>>) null);
+        Assertions.assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+    }
+
     private Optional<Contacts> fakeOptionalContact() {
         Contacts contact = new Contacts();
         contact.setId(uuid);
