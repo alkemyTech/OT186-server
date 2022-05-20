@@ -28,7 +28,7 @@ public class OrganizationController {
 
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<OrganizationDTO> update(@PathVariable UUID id, @Valid @RequestBody OrganizationDTO dto){
         OrganizationDTO organizationDTO = organizationService.update(id, dto);
