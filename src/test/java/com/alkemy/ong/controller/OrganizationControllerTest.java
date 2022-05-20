@@ -95,7 +95,7 @@ public class OrganizationControllerTest extends AuthForTest {
     }
 
     @Test
-    void getDetailsByIdWithoutLogin403(){
+    void getDetailsByIdWithoutLogin401(){
 
         when(organizationRepository.findById(ID_ORG)).thenReturn(Optional.of(aOrganization()));
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
