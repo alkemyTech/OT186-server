@@ -118,6 +118,24 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
 				<configuration>
+					<excludes>
+						<!--Packages excludes from the test-->
+						<exclude>**/com/alkemy/ong/*</exclude>
+						<exclude>**/com/alkemy/ong/services/imp/*</exclude>
+						<exclude>**/com/alkemy/ong/entity/*</exclude>
+						<exclude>**/com/alkemy/ong/mapper/*</exclude>
+						<exclude>**/com/alkemy/ong/dto/*</exclude>
+						<exclude>**/com/alkemy/ong/exception/*</exclude>
+						<exclude>**/com/alkemy/ong/auth/dto/*</exclude>
+						<exclude>**/com/alkemy/ong/services/*</exclude>
+						<exclude>**/com/alkemy/ong/config/*</exclude>
+						<exclude>**/com/alkemy/ong/auth/utils/*</exclude>
+						<exclude>**/com/alkemy/ong/auth/config/*</exclude>
+						<exclude>**/com/alkemy/ong/auth/filter/*</exclude>
+						<exclude>**/com/alkemy/ong/exception/*</exclude>
+						<exclude>**/com/alkemy/ong/controller/CommentsController.class</exclude>
+						<exclude>**/com/alkemy/ong/controller/SlideController.class</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
