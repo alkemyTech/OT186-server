@@ -99,7 +99,17 @@ class TestimonialControllerTest extends AuthForTest {
                 testRestTemplate.exchange(generateUriWithPort("/testimonials/" + uuid.toString()), HttpMethod.PUT, httpEntity, TestimonialDTO.class);
         Assertions.assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
     }
-
+    @Test
+    void deleteWithNoAdmin() {
+        TestimonialDTO userDTO = buildRequest();
+        when(testimonialRepository.findById(uuid)).thenReturn(fakeTestimonial());
+        when(testimonialRepository.save(any(Testimonial.class))).thenReturn(fakeSaveTestimonial());
+        HttpEntity<TestimonialDTO> httpEntity = new HttpEntity<>(userDTO, httpHeaders);
+        putTokenInHeader("ROLE_USER");
+        ResponseEntity<TestimonialDTO> responseEntity =
+                testRestTemplate.exchange(generateUriWithPort("/users/" + uuid.toString()), HttpMethod.DELETE, httpEntity, TestimonialDTO.class);
+        Assertions.assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
+    }
     private Optional<Testimonial> fakeTestimonial() {
         Testimonial testimonial = new Testimonial();
         testimonial.setId(uuid);
