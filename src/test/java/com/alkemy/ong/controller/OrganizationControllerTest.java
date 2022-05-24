@@ -39,6 +39,12 @@ public class OrganizationControllerTest extends AuthForTest {
 
     @MockBean
     private OrganizationRepository organizationRepository;
+    @MockBean
+    private SlideService slideService;
+    @MockBean
+    private AmazonServiceImpl amazonService;
+    @MockBean
+    private AmazonS3ClientConfig amazonS3ClientConfig;
 
     private static String ORG_PATH = "/organization/public";
 
